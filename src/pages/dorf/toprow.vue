@@ -35,7 +35,6 @@
       <image xlink:href="scoreicons.svg" />
     </svg>
   </div>
-  <div class="text-white flex items-center justify-center px-2">Totaux</div>
 </template>
 
 <script setup lang="ts"></script>

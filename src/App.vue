@@ -4,7 +4,9 @@ import pdf from "./components/pdf.vue";
 </script>
 
 <template>
-  <dorf></dorf>
+  <div class="container mx-auto">
+    <dorf></dorf>
+  </div>
   <pdf></pdf>
 </template>
 
