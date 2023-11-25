@@ -1,4 +1,4 @@
-# Recipe viewer in gitlab
+# DorfRomantik counter app
 
 
 
