@@ -5,7 +5,7 @@
     </div>
     <div class="basis-3/6">
       <svg viewBox="0 0 150 82" width="140" class="mx-auto">
-        <image xlink:href="dorftitle.svg" />
+        <image xlink:href="/dorftitle.svg" />
       </svg>
     </div>
     <div class="basis-2/6 flex items-center justify-center">
@@ -22,7 +22,7 @@
     <div class="flex flex-row px-1">
       <div class="my-auto hidden md:block">Objectifs</div>
       <svg viewBox="300 0 50 50" class="mx-auto">
-        <image xlink:href="scoreicons.svg" />
+        <image xlink:href="/scoreicons.svg" />
       </svg>
     </div>
     <input v-model="score.Woods" type="number" />
@@ -34,7 +34,7 @@
     <div class="flex flex-row px-1">
       <div class="my-auto hidden md:block">Drapeaux</div>
       <svg viewBox="250 0 50 50" class="mx-auto">
-        <image xlink:href="scoreicons.svg" />
+        <image xlink:href="/scoreicons.svg" />
       </svg>
     </div>
     <input v-model="score.WoodsFlag" type="number" />
@@ -49,29 +49,29 @@
     <unlock v-model="score.Cabane">
       Cabane dans le bois<span>
         <svg viewBox="0 0 50 60" height="30">
-          <image xlink:href="scoreicons.svg" />
+          <image xlink:href="/scoreicons.svg" />
         </svg> </span
     ></unlock>
     <unlock v-model="score.Moisson"
       >fête des moissons
       <span>
         <svg viewBox="50 0 50 60" height="30">
-          <image xlink:href="scoreicons.svg" /></svg></span
+          <image xlink:href="/scoreicons.svg" /></svg></span
     ></unlock>
     <unlock v-model="score.TourDeGuet"
       >Tour de guet<span>
         <svg viewBox="100 0 50 60" height="30">
-          <image xlink:href="scoreicons.svg" /></svg></span
+          <image xlink:href="/scoreicons.svg" /></svg></span
     ></unlock>
     <unlock v-model="score.Locomotive"
       >Locomotive<span>
         <svg viewBox="150 0 50 60" height="30">
-          <image xlink:href="scoreicons.svg" /></svg></span
+          <image xlink:href="/scoreicons.svg" /></svg></span
     ></unlock>
     <unlock v-model="score.Bateaux"
       >Bateaux de plaisance<span>
         <svg viewBox="200 0 50 60" height="30">
-          <image xlink:href="scoreicons.svg" /></svg></span
+          <image xlink:href="/scoreicons.svg" /></svg></span
     ></unlock>
     <unlock v-model="score.Hearts">Coeurs rouge</unlock>
     <unlock v-model="score.Circus">Cirque</unlock>
