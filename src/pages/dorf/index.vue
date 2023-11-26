@@ -47,52 +47,68 @@
   <!-- unlocks -->
   <div class="border-white border-solid border-2 border-t-0">
     <unlock v-model="score.Cabane">
-      Cabane dans le bois<span>
-        <svg viewBox="0 0 50 60" height="30">
-          <image xlink:href="/scoreicons.svg" />
-        </svg> </span
-    ></unlock>
+      Cabane dans le bois
+      <dorficon icontype="wood" :size="20"></dorficon>
+    </unlock>
     <unlock v-model="score.Moisson"
       >fête des moissons
-      <span>
-        <svg viewBox="50 0 50 60" height="30">
-          <image xlink:href="/scoreicons.svg" /></svg></span
-    ></unlock>
+      <dorficon icontype="field" :size="20"></dorficon>
+    </unlock>
     <unlock v-model="score.TourDeGuet"
-      >Tour de guet<span>
-        <svg viewBox="100 0 50 60" height="30">
-          <image xlink:href="/scoreicons.svg" /></svg></span
-    ></unlock>
+      >Tour de guet
+      <dorficon icontype="village" :size="20"></dorficon>
+    </unlock>
     <unlock v-model="score.Locomotive"
-      >Locomotive<span>
-        <svg viewBox="150 0 50 60" height="30">
-          <image xlink:href="/scoreicons.svg" /></svg></span
-    ></unlock>
+      >Locomotive
+      <dorficon icontype="railway" :size="20"></dorficon>
+    </unlock>
     <unlock v-model="score.Bateaux"
-      >Bateaux de plaisance<span>
-        <svg viewBox="200 0 50 60" height="30">
-          <image xlink:href="/scoreicons.svg" /></svg></span
-    ></unlock>
+      >Bateaux de plaisance
+      <dorficon icontype="stream" :size="20"></dorficon>
+    </unlock>
     <unlock v-model="score.Hearts">Coeurs rouge</unlock>
     <unlock v-model="score.Circus">Cirque</unlock>
     <unlock v-model="score.Aiguilleur">Aiguilleurs (2/passage à niveau)</unlock>
-    <unlock v-model="score.Bergere">Bergère(1/Mouton)</unlock>
+    <unlock v-model="score.Bergere">Bergère (1/Mouton)</unlock>
     <unlock v-model="score.Colline">Colline(à dist.2*2/tuile Objectif)</unlock>
     <unlock v-model="score.Chantier"
       >Chantier de Construction (territoire de 7+=7)</unlock
     >
-    <unlock v-model="score.Decollage">Site de décollage(2/tuile parcourue)</unlock>
+    <unlock v-model="score.Decollage">Site de décollage (2/tuile parcourue)</unlock>
     <unlock v-model="score.GoldHearts">Coeur doré (2/bords correspondant)</unlock>
 
-    <unlock v-model="score.Gare">Gare ferroviare(si fermée=1/tuile)</unlock>
-    <unlock v-model="score.Port">Port de plaisance(si fermé=1/tuile)</unlock>
+    <unlock v-model="score.Gare">Gare ferroviare (si fermée = 1/tuile)</unlock>
+    <unlock v-model="score.Port">Port de plaisance (si fermé = 1/tuile)</unlock>
   </div>
+  <dorficon icontype="stream"></dorficon>
+  <!-- <card :Tile="TileE.ForestCabin" size="100"></card> -->
+  <!-- <card :Tile="TileE.HarvestFestival" size="150"></card> -->
+  <!-- <card :Tile="TileE.Ship" size="100"></card> -->
+
+  <card :Tile="TileE.ForestCabin" size="200"></card>
+  <card :Tile="TileE.HarvestFestival" size="200"></card>
+  <card :Tile="TileE.WatchTower" size="200"></card>
+  <card :Tile="TileE.Locomotive" size="200"></card>
+  <card :Tile="TileE.Ship" size="200"></card>
+  <card :Tile="TileE.TrainStation" size="200"></card>
+  <card :Tile="TileE.Harbor" size="200"></card>
+  <card :Tile="TileE.RedHearts" size="200"></card>
+  <card :Tile="TileE.Circus" size="200"></card>
+  <card :Tile="TileE.SignalMan" size="200"></card>
+  <card :Tile="TileE.Sheperdess" size="200"></card>
+  <card :Tile="TileE.Hill" size="200"></card>
+  <card :Tile="TileE.ConstructionSite" size="200"></card>
+  <card :Tile="TileE.BalloonLauch" size="200"></card>
+  <card :Tile="TileE.GoldenHearts" size="200"></card>
 </template>
 
 <script setup lang="ts">
 import { computed, reactive } from "vue";
 import toprow from "./toprow.vue";
 import unlock from "./unlock.vue";
+import dorficon from "./dorficon.vue";
+import card from "../../components/card.vue";
+import { tileNameEnum as TileE } from "./tilename";
 const resetScore = {
   Woods: 0,
   Grain: 0,
