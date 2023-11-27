@@ -15,7 +15,7 @@
   </div>
 
   <!-- Objectives & Flags -->
-  <div :class="{ blurry: cardToDisplay == 'HIDE' }" class="relative">
+  <div :class="{ blurry: cardToDisplay != 'HIDE' }" class="relative">
     <div
       class="grid grid-cols-[minmax(90px,1fr)_repeat(5,minmax(0,1fr))] items-center scoregrid text-white"
     >
@@ -48,30 +48,32 @@
 
     <!-- unlocks -->
     <div class="border-white border-solid border-2 border-t-0">
-      <unlock v-model="score.Cabane" @click="showCard(TileE.ForestCabin)">
-        Cabane dans le bois
+      <unlock v-model="score.Cabane">
+        <div @click="showCard(TileE.ForestCabin)">Cabane dans le bois</div>
         <dorficon icontype="wood" :size="20"></dorficon>
       </unlock>
-      <unlock v-model="score.Moisson" @click="showCard(TileE.HarvestFestival)"
-        >fête des moissons
+      <unlock v-model="score.Moisson"
+        ><div @click="showCard(TileE.HarvestFestival)">fête des moissons</div>
         <dorficon icontype="field" :size="20"></dorficon>
       </unlock>
-      <unlock v-model="score.TourDeGuet" @click="showCard(TileE.WatchTower)"
-        >Tour de guet
+      <unlock v-model="score.TourDeGuet"
+        ><div @click="showCard(TileE.WatchTower)">Tour de guet</div>
         <dorficon icontype="village" :size="20"></dorficon>
       </unlock>
-      <unlock v-model="score.Locomotive" @click="showCard(TileE.Locomotive)"
-        >Locomotive
+      <unlock v-model="score.Locomotive"
+        ><div @click="showCard(TileE.Locomotive)">Locomotive</div>
         <dorficon icontype="railway" :size="20"></dorficon>
       </unlock>
-      <unlock v-model="score.Bateaux" @click="showCard(TileE.Ship)"
-        >Bateaux de plaisance
+      <unlock v-model="score.Bateaux"
+        ><div @click="showCard(TileE.Ship)">Bateaux de plaisance</div>
         <dorficon icontype="stream" :size="20"></dorficon>
       </unlock>
       <unlock v-model="score.Hearts">Coeurs rouge</unlock>
       <unlock v-model="score.Circus">Cirque</unlock>
-      <unlock v-model="score.Aiguilleur" @click="showCard(TileE.SignalMan)"
-        >Aiguilleurs (2/passage à niveau)</unlock
+      <unlock v-model="score.Aiguilleur"
+        ><div @click="showCard(TileE.SignalMan)">
+          Aiguilleurs (2/passage à niveau)
+        </div></unlock
       >
       <unlock v-model="score.Bergere">Bergère (1/Mouton)</unlock>
       <unlock v-model="score.Colline">Colline(à dist.2*2/tuile Objectif)</unlock>

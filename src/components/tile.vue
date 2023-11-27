@@ -35,7 +35,7 @@ const dessine = () => {
   if (myCanvas.value) {
     const ctx = myCanvas.value.getContext("2d");
 
-    const imageUrl = "/carte.png";
+    const imageUrl = "carte.png";
 
     const img = new Image();
     img.src = imageUrl;
