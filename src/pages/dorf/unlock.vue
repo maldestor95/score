@@ -1,5 +1,7 @@
 <template>
-  <div class="grid grid-cols-[1fr_100px] border-t-2 border-white border-solid">
+  <div
+    class="grid grid-cols-[1fr_100px] border-t-2 border-white border-solid hover:cursor-pointer"
+  >
     <div
       class="text-start px-2 text-white border-r-2 border-white border-solid grid grid-cols-[1fr_30px]"
     >

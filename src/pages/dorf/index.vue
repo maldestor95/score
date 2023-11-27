@@ -1,7 +1,8 @@
 <template>
+  <!-- HEADER -->
   <div class="flex my-2">
     <div class="basis-1/6 flex items-center">
-      <button @click="reset">Reset</button>
+      <button @click="reset" class="text-black">Reset</button>
     </div>
     <div class="basis-3/6">
       <svg viewBox="0 0 150 82" width="140" class="mx-auto">
@@ -14,101 +15,94 @@
   </div>
 
   <!-- Objectives & Flags -->
-  <div
-    class="grid grid-cols-[minmax(90px,1fr)_repeat(5,minmax(0,1fr))] items-center scoregrid text-white"
-  >
-    <toprow></toprow>
-
-    <div class="flex flex-row px-1">
-      <div class="my-auto hidden md:block">Objectifs</div>
-      <svg viewBox="300 0 50 50" class="mx-auto">
-        <image xlink:href="/scoreicons.svg" />
-      </svg>
-    </div>
-    <input v-model="score.Woods" type="number" />
-    <input v-model="score.Grain" type="number" />
-    <input v-model="score.Village" type="number" />
-    <input v-model="score.Track" type="number" />
-    <input v-model="score.Stream" type="number" />
-
-    <div class="flex flex-row px-1">
-      <div class="my-auto hidden md:block">Drapeaux</div>
-      <svg viewBox="250 0 50 50" class="mx-auto">
-        <image xlink:href="/scoreicons.svg" />
-      </svg>
-    </div>
-    <input v-model="score.WoodsFlag" type="number" />
-    <input v-model="score.GrainFlag" type="number" />
-    <input v-model="score.VillageFlag" type="number" />
-    <input v-model="score.LongestTrack" type="number" />
-    <input v-model="score.LongestStream" type="number" />
-  </div>
-
-  <!-- unlocks -->
-  <div class="border-white border-solid border-2 border-t-0">
-    <unlock v-model="score.Cabane">
-      Cabane dans le bois
-      <dorficon icontype="wood" :size="20"></dorficon>
-    </unlock>
-    <unlock v-model="score.Moisson"
-      >fête des moissons
-      <dorficon icontype="field" :size="20"></dorficon>
-    </unlock>
-    <unlock v-model="score.TourDeGuet"
-      >Tour de guet
-      <dorficon icontype="village" :size="20"></dorficon>
-    </unlock>
-    <unlock v-model="score.Locomotive"
-      >Locomotive
-      <dorficon icontype="railway" :size="20"></dorficon>
-    </unlock>
-    <unlock v-model="score.Bateaux"
-      >Bateaux de plaisance
-      <dorficon icontype="stream" :size="20"></dorficon>
-    </unlock>
-    <unlock v-model="score.Hearts">Coeurs rouge</unlock>
-    <unlock v-model="score.Circus">Cirque</unlock>
-    <unlock v-model="score.Aiguilleur">Aiguilleurs (2/passage à niveau)</unlock>
-    <unlock v-model="score.Bergere">Bergère (1/Mouton)</unlock>
-    <unlock v-model="score.Colline">Colline(à dist.2*2/tuile Objectif)</unlock>
-    <unlock v-model="score.Chantier"
-      >Chantier de Construction (territoire de 7+=7)</unlock
+  <div :class="{ blurry: cardToDisplay == 'HIDE' }" class="relative">
+    <div
+      class="grid grid-cols-[minmax(90px,1fr)_repeat(5,minmax(0,1fr))] items-center scoregrid text-white"
     >
-    <unlock v-model="score.Decollage">Site de décollage (2/tuile parcourue)</unlock>
-    <unlock v-model="score.GoldHearts">Coeur doré (2/bords correspondant)</unlock>
+      <toprow></toprow>
 
-    <unlock v-model="score.Gare">Gare ferroviare (si fermée = 1/tuile)</unlock>
-    <unlock v-model="score.Port">Port de plaisance (si fermé = 1/tuile)</unlock>
+      <div class="flex flex-row px-1">
+        <div class="my-auto hidden md:block">Objectifs</div>
+        <svg viewBox="300 0 50 50" class="mx-auto">
+          <image xlink:href="/scoreicons.svg" />
+        </svg>
+      </div>
+      <input v-model="score.Woods" type="number" />
+      <input v-model="score.Grain" type="number" />
+      <input v-model="score.Village" type="number" />
+      <input v-model="score.Track" type="number" />
+      <input v-model="score.Stream" type="number" />
+
+      <div class="flex flex-row px-1">
+        <div class="my-auto hidden md:block">Drapeaux</div>
+        <svg viewBox="250 0 50 50" class="mx-auto">
+          <image xlink:href="/scoreicons.svg" />
+        </svg>
+      </div>
+      <input v-model="score.WoodsFlag" type="number" />
+      <input v-model="score.GrainFlag" type="number" />
+      <input v-model="score.VillageFlag" type="number" />
+      <input v-model="score.LongestTrack" type="number" />
+      <input v-model="score.LongestStream" type="number" />
+    </div>
+
+    <!-- unlocks -->
+    <div class="border-white border-solid border-2 border-t-0">
+      <unlock v-model="score.Cabane" @click="showCard(TileE.ForestCabin)">
+        Cabane dans le bois
+        <dorficon icontype="wood" :size="20"></dorficon>
+      </unlock>
+      <unlock v-model="score.Moisson" @click="showCard(TileE.HarvestFestival)"
+        >fête des moissons
+        <dorficon icontype="field" :size="20"></dorficon>
+      </unlock>
+      <unlock v-model="score.TourDeGuet" @click="showCard(TileE.WatchTower)"
+        >Tour de guet
+        <dorficon icontype="village" :size="20"></dorficon>
+      </unlock>
+      <unlock v-model="score.Locomotive" @click="showCard(TileE.Locomotive)"
+        >Locomotive
+        <dorficon icontype="railway" :size="20"></dorficon>
+      </unlock>
+      <unlock v-model="score.Bateaux" @click="showCard(TileE.Ship)"
+        >Bateaux de plaisance
+        <dorficon icontype="stream" :size="20"></dorficon>
+      </unlock>
+      <unlock v-model="score.Hearts">Coeurs rouge</unlock>
+      <unlock v-model="score.Circus">Cirque</unlock>
+      <unlock v-model="score.Aiguilleur" @click="showCard(TileE.SignalMan)"
+        >Aiguilleurs (2/passage à niveau)</unlock
+      >
+      <unlock v-model="score.Bergere">Bergère (1/Mouton)</unlock>
+      <unlock v-model="score.Colline">Colline(à dist.2*2/tuile Objectif)</unlock>
+      <unlock v-model="score.Chantier"
+        >Chantier de Construction (territoire de 7+=7)</unlock
+      >
+      <unlock v-model="score.Decollage">Site de décollage (2/tuile parcourue)</unlock>
+      <unlock v-model="score.GoldHearts">Coeur doré (2/bords correspondant)</unlock>
+
+      <unlock v-model="score.Gare">Gare ferroviare (si fermée = 1/tuile)</unlock>
+      <unlock v-model="score.Port">Port de plaisance (si fermé = 1/tuile)</unlock>
+    </div>
+    <!-- <dorficon icontype="stream"></dorficon> -->
   </div>
-  <dorficon icontype="stream"></dorficon>
-  <!-- <card :Tile="TileE.ForestCabin" size="100"></card> -->
-  <!-- <card :Tile="TileE.HarvestFestival" size="150"></card> -->
-  <!-- <card :Tile="TileE.Ship" size="100"></card> -->
-
-  <card :Tile="TileE.ForestCabin" size="200"></card>
-  <card :Tile="TileE.HarvestFestival" size="200"></card>
-  <card :Tile="TileE.WatchTower" size="200"></card>
-  <card :Tile="TileE.Locomotive" size="200"></card>
-  <card :Tile="TileE.Ship" size="200"></card>
-  <card :Tile="TileE.TrainStation" size="200"></card>
-  <card :Tile="TileE.Harbor" size="200"></card>
-  <card :Tile="TileE.RedHearts" size="200"></card>
-  <card :Tile="TileE.Circus" size="200"></card>
-  <card :Tile="TileE.SignalMan" size="200"></card>
-  <card :Tile="TileE.Sheperdess" size="200"></card>
-  <card :Tile="TileE.Hill" size="200"></card>
-  <card :Tile="TileE.ConstructionSite" size="200"></card>
-  <card :Tile="TileE.BalloonLauch" size="200"></card>
-  <card :Tile="TileE.GoldenHearts" size="200"></card>
+  <div
+    class="absolute top-20 container flex align-center justify-center blurry w-full h-full"
+    v-if="cardToDisplay != 'HIDE'"
+  >
+    <card :Tile="cardToDisplay" size="200" @hide="cardToDisplay = 'HIDE'"></card>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { computed, reactive } from "vue";
+import { computed, reactive, ref } from "vue";
 import toprow from "./toprow.vue";
 import unlock from "./unlock.vue";
 import dorficon from "./dorficon.vue";
 import card from "../../components/card.vue";
 import { tileNameEnum as TileE } from "./tilename";
+
+const cardToDisplay = ref("HIDE");
 const resetScore = {
   Woods: 0,
   Grain: 0,
@@ -137,6 +131,7 @@ const resetScore = {
   Port: 0,
 };
 let score = reactive({ ...resetScore });
+
 function reset() {
   Object.assign(score, resetScore);
 }
@@ -156,6 +151,10 @@ const total = computed(() => {
   // });
   return totalTemp;
 });
+
+const showCard = (card: TileE): void => {
+  cardToDisplay.value = card.toString();
+};
 </script>
 
 <style scoped>
@@ -163,5 +162,13 @@ input {
   text-align: center;
   color: white;
   background-color: #7e8848;
+}
+#unlock {
+  color: #000;
+}
+
+.blurry {
+  backdrop-filter: blur(1px);
+  transition: width 0.5s, height 0.5s, blur 2s;
 }
 </style>

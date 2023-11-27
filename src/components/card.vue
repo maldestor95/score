@@ -1,103 +1,46 @@
 <template>
-  <div class="flex">
-    <h1>{{ Tile }}</h1>
-    <canvas
-      ref="myCanvas"
-      :id="Tile"
-      :width="size"
-      :height="size"
-      style="border: 1px solid grey"
-      class="bg-red-300 w-40"
-    ></canvas>
+  <div class="border rounded-lg bg-white p-2 w-60 h-max relative">
+    <div class="bg-[#7F8A49] h-60">
+      <div class="text-xl">{{ props.Tile }}</div>
+      <tile
+        :Tile="props.Tile"
+        size="200"
+        :class="'flex justify-center align-center'"
+      ></tile>
+    </div>
+    <div class="bg-[#5A8948] h-40">
+      <p class="font-bold text-start pl-2">nouvelle règle</p>
+      <p class="text-start pl-4">
+        {{ getRule(props.Tile) }}
+      </p>
+    </div>
+
+    <div class="absolute top-0 right-0 cursor-pointer" @click="$emit('hide')">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="4"
+        stroke="black"
+        class="w-6 h-6"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import { tileNameEnum } from "../pages/dorf/tilename.ts";
-
-const myCanvas = ref<HTMLCanvasElement | null>(null);
+import tile from "./tile.vue";
+import { rules } from "../pages/dorf/tilename";
 
 const props = defineProps<{
-  size: string;
-  Tile: tileNameEnum;
+  Tile: string;
 }>();
-onMounted(() => {
-  if (myCanvas.value) {
-    const ctx = myCanvas.value.getContext("2d");
 
-    const imageUrl = "/carte.png";
-
-    const img = new Image();
-    img.src = imageUrl;
-
-    img.onload = () => {
-      // Draw the image onto the canvas
-      if (ctx) {
-        switch (props.Tile) {
-          case tileNameEnum.ForestCabin:
-            ctx.drawImage(img, 547, 5, 270, 235, 0, 0, iconSize(), iconSize());
-
-            break;
-          case tileNameEnum.HarvestFestival:
-            ctx.drawImage(img, 5, 240, 270, 235, 0, 0, iconSize(), iconSize());
-            break;
-
-          case tileNameEnum.Ship:
-            ctx.drawImage(img, 280, 5, 270, 235, 0, 0, iconSize(), iconSize());
-            break;
-
-          case tileNameEnum.WatchTower:
-            ctx.drawImage(img, 550, 240, 270, 235, 0, 0, iconSize(), iconSize());
-            break;
-          case tileNameEnum.Locomotive:
-            ctx.drawImage(img, 280, 240, 270, 235, 0, 0, iconSize(), iconSize());
-            break;
-          case tileNameEnum.Ship:
-            ctx.drawImage(img, 280, 5, 270, 235, 0, 0, iconSize(), iconSize());
-            break;
-          case tileNameEnum.TrainStation:
-            // ctx.drawImage(img, 15, 710, 270, 235, 0, 0, iconSize(), iconSize());
-            break;
-          case tileNameEnum.Harbor:
-            // ctx.drawImage(img, 280, 5, 270, 235, 0, 0, iconSize(), iconSize());
-            break;
-          case tileNameEnum.RedHearts:
-            ctx.drawImage(img, 290, 710, 270, 235, 0, 0, iconSize(), iconSize());
-            break;
-          case tileNameEnum.Circus:
-            ctx.drawImage(img, 285, 477, 270, 235, 0, 0, iconSize(), iconSize());
-            break;
-          case tileNameEnum.SignalMan:
-            ctx.drawImage(img, 15, 710, 270, 235, 0, 0, iconSize(), iconSize());
-            break;
-          case tileNameEnum.Sheperdess:
-            // ctx.drawImage(img, 280, 5, 270, 235, 0, 0, iconSize(), iconSize());
-            break;
-          case tileNameEnum.Hill:
-            // ctx.drawImage(img, 280, 5, 270, 235, 0, 0, iconSize(), iconSize());
-            break;
-          case tileNameEnum.ConstructionSite:
-            // ctx.drawImage(img, 280, 5, 270, 235, 0, 0, iconSize(), iconSize());
-            break;
-          case tileNameEnum.BalloonLauch:
-            // ctx.drawImage(img, 280, 5, 270, 235, 0, 0, iconSize(), iconSize());
-            break;
-          case tileNameEnum.GoldenHearts:
-            // ctx.drawImage(img, 280, 5, 270, 235, 0, 0, iconSize(), iconSize());
-            break;
-
-          default:
-            break;
-        }
-      }
-    };
-  }
-});
-
-const iconSize = () => {
-  return <number>(<unknown>props.size);
-};
+function getRule(key: string): string {
+  return rules[key] || "";
+}
 </script>
 
 <style scoped></style>
