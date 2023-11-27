@@ -8,7 +8,7 @@
         :class="'flex justify-center align-center'"
       ></tile>
     </div>
-    <div class="bg-[#5A8948] h-40">
+    <div class="bg-[#5A8948] h-50">
       <p class="font-bold text-start pl-2">nouvelle règle</p>
       <p class="text-start pl-4">
         {{ getRule(props.Tile) }}

@@ -1,8 +1,21 @@
 <template>
   <!-- HEADER -->
   <div class="flex my-2">
-    <div class="basis-1/6 flex items-center">
-      <button @click="reset" class="text-black">Reset</button>
+    <div class="basis-1/6 flex items-center justify-center" @click="reset">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="3"
+        stroke="currentColor"
+        class="w-6 h-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+        />
+      </svg>
     </div>
     <div class="basis-3/6">
       <svg viewBox="0 0 150 82" width="140" class="mx-auto">
@@ -49,44 +62,63 @@
     <!-- unlocks -->
     <div class="border-white border-solid border-2 border-t-0">
       <unlock v-model="score.Cabane">
-        <div @click="showCard(TileE.ForestCabin)">Cabane dans le bois</div>
+        <cardhelp @click="showCard(TileE.ForestCabin)">Cabane dans le bois</cardhelp>
         <dorficon icontype="wood" :size="20"></dorficon>
       </unlock>
-      <unlock v-model="score.Moisson"
-        ><div @click="showCard(TileE.HarvestFestival)">fête des moissons</div>
+
+      <unlock v-model="score.Moisson">
+        <cardhelp @click="showCard(TileE.HarvestFestival)">fête des moissons</cardhelp>
         <dorficon icontype="field" :size="20"></dorficon>
       </unlock>
-      <unlock v-model="score.TourDeGuet"
-        ><div @click="showCard(TileE.WatchTower)">Tour de guet</div>
+
+      <unlock v-model="score.TourDeGuet">
+        <cardhelp @click="showCard(TileE.WatchTower)">Tour de guet</cardhelp>
         <dorficon icontype="village" :size="20"></dorficon>
       </unlock>
-      <unlock v-model="score.Locomotive"
-        ><div @click="showCard(TileE.Locomotive)">Locomotive</div>
+
+      <unlock v-model="score.Locomotive">
+        <cardhelp @click="showCard(TileE.Locomotive)">Locomotive</cardhelp>
         <dorficon icontype="railway" :size="20"></dorficon>
       </unlock>
-      <unlock v-model="score.Bateaux"
-        ><div @click="showCard(TileE.Ship)">Bateaux de plaisance</div>
+
+      <unlock v-model="score.Bateaux">
+        <cardhelp @click="showCard(TileE.Ship)">Bateaux de plaisance</cardhelp>
         <dorficon icontype="stream" :size="20"></dorficon>
       </unlock>
-      <unlock v-model="score.Hearts">Coeurs rouge</unlock>
-      <unlock v-model="score.Circus">Cirque</unlock>
+
+      <unlock v-model="score.Hearts">
+        <cardhelp @click="showCard(TileE.RedHearts)">Coeurs rouge</cardhelp>
+        <dorficon icontype="hearts" :size="20"></dorficon>
+      </unlock>
+
+      <unlock v-model="score.Circus">
+        <cardhelp @click="showCard(TileE.Circus)">Cirque</cardhelp>
+        <dorficon icontype="circus" :size="20"></dorficon>
+      </unlock>
+
       <unlock v-model="score.Aiguilleur"
-        ><div @click="showCard(TileE.SignalMan)">
-          Aiguilleurs (2/passage à niveau)
-        </div></unlock
-      >
+        ><cardhelp @click="showCard(TileE.SignalMan)"
+          >Aiguilleurs (2/passage à niveau)</cardhelp
+        >
+        <dorficon icontype="" :size="20"></dorficon>
+      </unlock>
+
       <unlock v-model="score.Bergere">Bergère (1/Mouton)</unlock>
+
       <unlock v-model="score.Colline">Colline(à dist.2*2/tuile Objectif)</unlock>
+
       <unlock v-model="score.Chantier"
         >Chantier de Construction (territoire de 7+=7)</unlock
       >
+
       <unlock v-model="score.Decollage">Site de décollage (2/tuile parcourue)</unlock>
+
       <unlock v-model="score.GoldHearts">Coeur doré (2/bords correspondant)</unlock>
 
       <unlock v-model="score.Gare">Gare ferroviare (si fermée = 1/tuile)</unlock>
+
       <unlock v-model="score.Port">Port de plaisance (si fermé = 1/tuile)</unlock>
     </div>
-    <!-- <dorficon icontype="stream"></dorficon> -->
   </div>
   <div
     class="absolute top-20 container flex align-center justify-center blurry w-full h-full"
@@ -94,6 +126,7 @@
   >
     <card :Tile="cardToDisplay" size="200" @hide="cardToDisplay = 'HIDE'"></card>
   </div>
+  <about></about>
 </template>
 
 <script setup lang="ts">
@@ -103,8 +136,11 @@ import unlock from "./unlock.vue";
 import dorficon from "./dorficon.vue";
 import card from "../../components/card.vue";
 import { tileNameEnum as TileE } from "./tilename";
+import cardhelp from "./cardhelp.vue";
+import about from "./about.vue";
 
 const cardToDisplay = ref("HIDE");
+
 const resetScore = {
   Woods: 0,
   Grain: 0,
