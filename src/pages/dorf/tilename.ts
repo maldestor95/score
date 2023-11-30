@@ -37,7 +37,7 @@ export const rules: { [key: string]: string } = {
     BalloonLauch: ``,
     GoldenHearts: ``,
     "Entrepots": `Si vous révélez une tuile paysage(ni une tâche ni une tuile spéciale) et qu'il n'y a de tuile paysage  sur l'entrepôt,vous pouvez le placez sur l'entrepôt plutôt que sur l'air de jeu. Si il y a une tuile, vous pouvez la jouer depuis l'entrepôt au lieu de révéler une autre tuile`,
-    "Nuage": `Si aucune voié ferrée ou rivière ne peut être poursuivie, vous pouvez y connecter un nuage.  Les voies ferrées ou rivières peuvent également bifurquer ici.`
+    "Nuage": `Si aucune voie ferrée ou rivière ne peut être poursuivie, vous pouvez y connecter un nuage.  Les voies ferrées ou rivières peuvent également bifurquer ici.`
 }
 export const tilePosition = {
     ForestCabin: "547, 5, 270, 235, 0, 0, 250, 250"

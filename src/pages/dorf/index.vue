@@ -124,10 +124,11 @@
       <unlock v-model="score.Gare">Gare ferroviare (si fermée = 1/tuile)</unlock>
 
       <unlock v-model="score.Port">Port de plaisance (si fermé = 1/tuile)</unlock>
-      <unlock v-model="score.Cloud"
+
+      <unlock v-model="score.Cloud" noscore
         ><cardhelp @click="showCard(TileE.Cloud)">Nuage</cardhelp></unlock
       >
-      <unlock v-model="score.WareHouse"
+      <unlock v-model="score.WareHouse" noscore
         ><cardhelp @click="showCard(TileE.WareHouse)">Entrepôt</cardhelp></unlock
       >
     </div>
