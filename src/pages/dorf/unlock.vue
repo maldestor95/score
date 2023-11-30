@@ -1,13 +1,10 @@
 <template>
   <div
-    :class="`grid grid-cols-[1fr${
-      noscore ? '' : '_100px'
-    }] border-t-2 border-white border-solid hover:cursor-pointer`"
+    class="grid border-t-2 border-white border-solid hover:cursor-pointer grid-cols-[1fr_100px]"
   >
+    <!-- :class="gridNoScore" -->
     <div
-      :class="`text-start px-2 text-white ${
-        noscore ? 'border-r-0' : 'border-r-2'
-      } border-white border-solid grid grid-cols-[1fr_30px]`"
+      class="text-start px-2 text-white border-white border-solid grid grid-cols grid-cols-[1fr_30px]"
     >
       <slot></slot>
     </div>
@@ -16,7 +13,7 @@
       v-if="!noscore"
       v-model="value"
       type="number"
-      class="bg-[#7E8848] text-center text-white"
+      class="bg-[#7E8848] text-center text-white border-l-2"
     />
   </div>
 </template>
