@@ -107,7 +107,11 @@
         ><cardhelp @click="showCard(TileE.Sheperdess)">Bergère (1/Mouton)</cardhelp>
       </unlock>
 
-      <unlock v-model="score.Colline">Colline(à dist.2*2/tuile Objectif)</unlock>
+      <unlock v-model="score.Colline"
+        ><cardhelp @click="showCard(TileE.Hill)"
+          >Colline(à dist.2*2/tuile Objectif)</cardhelp
+        ></unlock
+      >
 
       <unlock v-model="score.Chantier"
         >Chantier de Construction (territoire de 7+=7)</unlock
@@ -120,6 +124,12 @@
       <unlock v-model="score.Gare">Gare ferroviare (si fermée = 1/tuile)</unlock>
 
       <unlock v-model="score.Port">Port de plaisance (si fermé = 1/tuile)</unlock>
+      <unlock v-model="score.Cloud"
+        ><cardhelp @click="showCard(TileE.Cloud)">Nuage</cardhelp></unlock
+      >
+      <unlock v-model="score.WareHouse"
+        ><cardhelp @click="showCard(TileE.WareHouse)">Entrepôt</cardhelp></unlock
+      >
     </div>
   </div>
   <div
@@ -169,6 +179,8 @@ const resetScore = {
   Bateaux: 0,
   Gare: 0,
   Port: 0,
+  Cloud: 0,
+  WareHouse: 0,
 };
 let score = reactive({ ...resetScore });
 

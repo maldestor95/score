@@ -83,7 +83,7 @@ const dessine = () => {
             ctx.drawImage(img, 550, 480, 270, 235, 0, 0, iconSize(), iconSize());
             break;
           case tileNameEnum.Hill.toString():
-            // ctx.drawImage(img, 280, 5, 270, 235, 0, 0, iconSize(), iconSize());
+            ctx.drawImage(img, 610, 975, 345, 345, 0, 0, iconSize(), iconSize());
             break;
           case tileNameEnum.ConstructionSite.toString():
             // ctx.drawImage(img, 280, 5, 270, 235, 0, 0, iconSize(), iconSize());
@@ -93,6 +93,12 @@ const dessine = () => {
             break;
           case tileNameEnum.GoldenHearts.toString():
             // ctx.drawImage(img, 280, 5, 270, 235, 0, 0, iconSize(), iconSize());
+            break;
+          case tileNameEnum.Cloud.toString():
+            ctx.drawImage(img, 320, 945, 300, 300, 0, 0, iconSize(), iconSize());
+            break;
+          case tileNameEnum.WareHouse.toString():
+            ctx.drawImage(img, 0, 945, 300, 300, 0, 0, iconSize(), iconSize());
             break;
 
           default:
