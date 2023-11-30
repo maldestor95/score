@@ -103,7 +103,9 @@
         <dorficon icontype="" :size="20"></dorficon>
       </unlock>
 
-      <unlock v-model="score.Bergere">Bergère (1/Mouton)</unlock>
+      <unlock v-model="score.Bergere"
+        ><cardhelp @click="showCard(TileE.Sheperdess)">Bergère (1/Mouton)</cardhelp>
+      </unlock>
 
       <unlock v-model="score.Colline">Colline(à dist.2*2/tuile Objectif)</unlock>
 

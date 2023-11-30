@@ -80,7 +80,7 @@ const dessine = () => {
             ctx.drawImage(img, 15, 710, 270, 235, 0, 0, iconSize(), iconSize());
             break;
           case tileNameEnum.Sheperdess.toString():
-            // ctx.drawImage(img, 280, 5, 270, 235, 0, 0, iconSize(), iconSize());
+            ctx.drawImage(img, 550, 480, 270, 235, 0, 0, iconSize(), iconSize());
             break;
           case tileNameEnum.Hill.toString():
             // ctx.drawImage(img, 280, 5, 270, 235, 0, 0, iconSize(), iconSize());

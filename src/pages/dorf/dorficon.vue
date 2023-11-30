@@ -35,6 +35,12 @@
       <image xlink:href="/scoreicons.svg" />
     </svg>
   </span>
+  <!-- Sheperdess -->
+  <span v-if="icontype == 'Sheperdess'">
+    <svg viewBox="200 0 50 60" :width="size" :height="20">
+      <image xlink:href="/scoreicons.svg" />
+    </svg>
+  </span>
 </template>
 
 <script setup lang="ts">
