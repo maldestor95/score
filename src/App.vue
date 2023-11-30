@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import dorf from "./pages/dorf/index.vue";
-import pdf from "./components/pdf.vue";
 </script>
 
 <template>
   <div class="container mx-auto">
     <dorf></dorf>
   </div>
-  <pdf></pdf>
 </template>
 
 <style scoped>

@@ -1,18 +1,14 @@
 <template>
-  <div
-    v-if="show"
-    class="absolute top-0 left-0 w-full h-full bg-[#7d8846] flex justify-center"
-  >
-    <div class="container flex flex-col gap-4">
+  <div v-if="show" class="absolute top-0 left-0 w-full bg-[#7d8846] flex justify-center">
+    <div class="container flex flex-col gap-4 px-2">
       <h1 class="flex flex-row justify-around align-center py-10">
         <div>Maldestor95</div>
         <div>2023</div>
       </h1>
 
       <p class="text-justify">
-        DorfRomantik a gagné le Spiel Des Jahres 2023. Etant un peu paresseux avec les
-        feuilles de score, j'ai crée ce petit site gratuit pour aider à compter les
-        points.<br />
+        DorfRomantik a gagné le Spiel Des Jahres 2023. Ici, on vous aide juste à compter
+        les points si comme moi vous avez acheté une version allemande.<br />
         Si vous voulez en savoir plus sur le jeux, je vous invite à aller sur le site du
         distributeur français :
         <a
@@ -21,17 +17,24 @@
         >
       </p>
 
-      <div
-        class="text-white border-2 border-solid border-white rounded-2xl max-w-sm w-80 h-40 text-center py-16 mx-auto cursor-pointer"
-        @click="redirectToMainSite"
-      >
-        Retour vers le site pricincipal
-      </div>
-      <div
-        class="text-white border-2 border-solid border-white rounded-2xl max-w-sm w-80 h-40 text-center py-16 mx-auto cursor-pointer"
-        @click="show = !show"
-      >
-        Retour vers la feuille de score
+      <div class="flex justify-center flex-col">
+        <div
+          class="text-white border-2 border-solid border-white rounded-2xl max-w-sm w-80 h-40 text-center my-2 py-16 mx-auto cursor-pointer"
+          @click="show = !show"
+        >
+          Retour vers la feuille de score
+        </div>
+        <div
+          class="text-white border-2 border-solid border-white rounded-2xl max-w-sm w-80 h-40 text-center my-2 py-12 mx-auto align-center"
+        >
+          <pdfVue></pdfVue>
+        </div>
+        <div
+          class="text-white border-2 border-solid border-white rounded-2xl max-w-sm w-80 h-40 text-center my-2 py-16 mx-auto cursor-pointer"
+          @click="redirectToMainSite"
+        >
+          Retour vers le site pricincipal
+        </div>
       </div>
     </div>
   </div>
@@ -57,6 +60,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import pdfVue from "../../components/pdf.vue";
 const redirectToMainSite = () => {
   window.location.href = "https://maldestor95.github.io";
 };
