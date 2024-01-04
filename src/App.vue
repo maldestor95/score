@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import dorf from "./pages/dorf/index.vue";
+import wizard from "./pages/wizard/index.vue";
 </script>
 
 <template>
   <div class="container mx-auto">
-    <dorf></dorf>
+    <wizard></wizard>
   </div>
 </template>
 

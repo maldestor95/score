@@ -67,14 +67,9 @@ button:focus-visible {
   /* margin: 0 auto; */
   /* padding: 2rem; */
   text-align: center;
-  color: white;
+  /* color: white; */
 }
-.scoregrid >* {
-  border-color: white;
-  border-width: 2px;
-  border-style: solid;
-  height: 50px;
-}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
