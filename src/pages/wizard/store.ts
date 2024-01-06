@@ -4,6 +4,7 @@ interface State {
     userList: UserInfo[]
     trackBets: boolean
     scoreSteps: number[]
+    betSteps: number[]
 }
 
 export type UserInfo = {
@@ -18,7 +19,8 @@ export const useScoreStore = defineStore('scores', {
         return {
             userList: [{ name: 'player1', scorePerRound: [], betPerRound: [], currentRound: 0, currentBet: 0 }],
             trackBets: false,
-            scoreSteps: [1, 5, 10]
+            scoreSteps: [1, 5, 10],
+            betSteps: [1, 2, 5, 10],
         }
     },
     getters: {
@@ -81,7 +83,11 @@ export const useScoreStore = defineStore('scores', {
                 user.scorePerRound = []
                 user.betPerRound = []
             })
+        },
+        getScore(userId: number) {
+            return this.totalScore[userId]
         }
+
 
     }
 })

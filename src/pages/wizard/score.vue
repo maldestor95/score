@@ -1,37 +1,43 @@
 <template>
-  <div>
-    nb rounds: <span>{{ scoreStore.getRoundNumber }}</span>
-  </div>
-  <div class="flex flex-row">
-    <button @click="scoreStore.newRound">New Round</button>
+  <h1>
+    Round <span>{{ scoreStore.getRoundNumber }}</span>
+  </h1>
+  <button
+    @click="
+      scoreStore.newRound();
+      activeUser = '';
+    "
+  >
+    New Round
+  </button>
+  <button @click="togglePhase">Toggle phase {{ phase }}</button>
+
+  <div
+    v-for="(user, userId) in scoreStore.getUsers"
+    :key="userId"
+    @click="activeUser = user.name"
+  >
+    <editscore
+      v-if="phase == 'Score'"
+      v-model="user.currentRound"
+      :lastScore="scoreStore.getScore(userId)"
+      :steps="scoreStore.scoreSteps"
+      :editable="activeUser == user.name"
+    >
+      {{ user.name }}
+    </editscore>
+    <editscore
+      v-if="phase == 'Bet'"
+      v-model="user.currentBet"
+      :lastScore="scoreStore.getScore(userId)"
+      :steps="scoreStore.betSteps"
+      :editable="activeUser == user.name"
+    >
+      {{ user.name }}
+    </editscore>
   </div>
 
-  <h1>Round {{ scoreStore.getRoundNumber }}</h1>
-  <div class="grid grid-cols-2">
-    <section>
-      <h2>Round</h2>
-      <div
-        v-for="(user, userId) in scoreStore.getUsers"
-        :key="userId"
-        class="container flex flex-row flex-grow"
-      >
-        <div class="basis-1/3 px-2">
-          {{ user.name }}
-        </div>
-        <div>
-          <inputnumber v-model="user.currentRound" />
-        </div>
-      </div>
-    </section>
-    <section>
-      <h2>Bet</h2>
-      <div v-for="(user, userId) in scoreStore.getUsers" :key="userId">
-        <inputnumber v-model="user.currentBet" />
-      </div>
-    </section>
-  </div>
-
-  <h1>history</h1>
+  <!-- <h1>history</h1>
   <div
     v-for="(user, userId) in scoreStore.getUsers"
     :key="userId"
@@ -66,14 +72,22 @@
         </template>
       </inputnumber>
     </section>
-  </div>
+  </div> -->
   <slot></slot>
 </template>
 
 <script setup lang="ts">
 import { useScoreStore } from "./store";
-import inputnumber from "../../components/inputnumber.vue";
+import editscore from "./editscore.vue";
+import { ref } from "vue";
 const scoreStore = useScoreStore();
+const activeUser = ref("");
+const phase = ref("Score");
+const togglePhase = () => {
+  if (phase.value == "Score") {
+    phase.value = "Bet";
+  } else phase.value = "Score";
+};
 </script>
 
 <style scoped></style>
