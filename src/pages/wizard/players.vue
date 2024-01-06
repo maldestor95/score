@@ -43,11 +43,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed } from "vue";
 import { useScoreStore } from "./store.ts";
 
 const store = useScoreStore();
-const isGameStarted = ref(store.isGameStarted);
+const isGameStarted = computed(() => {
+  return store.isGameStarted;
+});
 
 const deleteU = (userId: number) => {
   store.deleteUser(userId);
