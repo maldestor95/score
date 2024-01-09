@@ -33,21 +33,30 @@ a:visited{
 
 
 h1 {
-  font-size: 3.2em;
+  @apply text-5xl;
+   /* font-size: 3.2em; */
   line-height: 1.1;
 }
+h2 {
+  @apply text-3xl
+}
 
-button {
+h3 {@apply text-xl
+}
+
+
+ button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  /* background-color: #1a1a1a; */
   cursor: pointer;
   transition: border-color 0.25s;
-}
+  @apply bg-blue-400 text-white;
+} 
 button:hover {
   border-color: #646cff;
 }
@@ -60,8 +69,8 @@ button:focus-visible {
   padding: 2em;
 }
 button:disabled {
-  background-color:slategray;
-  opacity: 0.3;
+  /* background-color:slategray; */
+  @apply bg-slate-400;
 }
 #app {
   /* max-width: 1280px; */
@@ -70,6 +79,7 @@ button:disabled {
   /* padding: 2rem; */
   text-align: center;
   /* color: white; */
+  @apply text-base
 }
 
 @media (prefers-color-scheme: light) {
@@ -80,7 +90,7 @@ button:disabled {
   a:hover {
     color: #747bff;
   }
-  button {
+  /* button {
     background-color: #f9f9f9;
-  }
+  } */
 }
