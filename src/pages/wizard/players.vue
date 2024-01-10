@@ -1,22 +1,21 @@
 <template>
   <div class="md:container md:shadow-2xl md:shadow-slate-600 px-2 md:rounded-md py-4">
-    <div class="md:flex md:justify-around">
-      <button @click="store.addUser()" :disabled="isGameStarted">Add Player</button>
+    <div class="flex justify-around">
+      <button class="" @click="store.addUser()" :disabled="isGameStarted">
+        Add Player
+      </button>
       <div>
-        <button @click="store.newGame()">New Game</button>
+        <button class="bg-blue-400 text-white" @click="store.newGame()">New Game</button>
       </div>
+      <toggleSwitch v-model="withBets" class="text-black">Bets </toggleSwitch>
     </div>
-
     <div v-if="store.getUsers.length > 0" class="pt-8 mx-2 relative">
       <div class="absolute top-2">name</div>
       <div
         v-for="userIndex in store.getUsers.length"
-        class="flex flex-row md:gap-10 mb-4 md:mb-2"
+        class="flex flex-row md:gap-10 mb-4 md:mb-2 gap-2"
       >
-        <input
-          v-model="store.userList[userIndex - 1].name"
-          class="grow w-60 w- shrink px-2 rounded-sm border-slate-300 border-2"
-        />
+        <input v-model="store.userList[userIndex - 1].name" class="grow w-60 shrink" />
         <button
           @click="deleteU(userIndex)"
           class="grow-0"
@@ -43,8 +42,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useScoreStore } from "./store.ts";
+import toggleSwitch from "../../components/toggleswitch.vue";
 
 const store = useScoreStore();
 const isGameStarted = computed(() => {
@@ -54,6 +54,7 @@ const isGameStarted = computed(() => {
 const deleteU = (userId: number) => {
   store.deleteUser(userId);
 };
+const withBets = ref(true);
 </script>
 
 <style scoped></style>

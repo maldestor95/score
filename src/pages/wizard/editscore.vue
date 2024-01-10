@@ -5,11 +5,12 @@
         <slot>UserName</slot>
       </div>
       <div class="basis-2/3">
-        <div class="flex justify-between mx-4">
+        <div class="flex justify-between mx-4 frame">
           <input
             type="number"
             v-model="modelValue"
-            class="w-10 rounded-md bg-transparent text-2xl"
+            class="w-20 rounded-md bg-transparent text-2xl text-center border-none"
+            :class="{ 'bg-slate-400': phase }"
             readonly
           />
           <div class="text-2xl">{{ props.lastScore }}</div>
@@ -34,11 +35,13 @@ interface Props {
   lastScore: number;
   steps: number[];
   editable?: boolean;
+  phase?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   lastScore: 0,
   steps: () => [1, 3, 5],
   editable: true,
+  phase: false,
 });
 const modelValue = defineModel<number>({ required: true });
 </script>
