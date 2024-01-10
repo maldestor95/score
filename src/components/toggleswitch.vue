@@ -1,7 +1,7 @@
 <template>
   <!-- code inspired by https://www.w3schools.com/howto/howto_css_switch.asp -->
   <div class="flex flex-row">
-    <div class="mr-2 z-0">
+    <div class="mr-2 z-0 pt-1">
       <slot>switch label</slot>
     </div>
     <label class="switch shrink-0 grow-0">
