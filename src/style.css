@@ -55,7 +55,7 @@ h3 {@apply text-xl
   /* background-color: #1a1a1a; */
   cursor: pointer;
   transition: border-color 0.25s;
-  @apply bg-blue-400 text-white;
+  @apply bg-blue-400 text-white ;
 } 
 button:hover {
   border-color: #646cff;
@@ -71,6 +71,12 @@ button:focus-visible {
 button:disabled {
   /* background-color:slategray; */
   @apply bg-slate-400;
+}
+input {
+   @apply px-2 rounded-md border-slate-300 border-2 h-10
+}
+.frame {
+  @apply  border-red-400 border-solid border-2
 }
 #app {
   /* max-width: 1280px; */
