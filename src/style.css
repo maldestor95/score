@@ -75,8 +75,11 @@ button:disabled {
 input {
    @apply px-2 rounded-md border-slate-300 border-2 h-10
 }
-.frame {
+.frame, .frameall {
   @apply  border-red-400 border-solid border-2
+}
+.frameall >* {
+  @apply  border-red-500 border-solid border-2
 }
 #app {
   /* max-width: 1280px; */
