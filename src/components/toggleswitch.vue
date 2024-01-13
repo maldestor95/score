@@ -5,7 +5,7 @@
       <slot>switch label</slot>
     </div>
     <label class="switch shrink-0 grow-0">
-      <input type="checkbox" :checked="model" @click="$emit('change', model)" />
+      <input type="checkbox" :checked="model" v-model="model" />
       <span class="slider round"></span>
     </label>
   </div>
