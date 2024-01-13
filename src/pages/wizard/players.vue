@@ -1,13 +1,21 @@
 <template>
   <div class="md:container md:shadow-2xl md:shadow-slate-600 px-2 md:rounded-md py-4">
-    <div class="flex justify-around">
-      <button class="" @click="store.addUser()" :disabled="isGameStarted">
+    <div
+      class="grid grid-cols-2 md:flex md:justify-around md:flex-wrap items-center gap-y-4"
+    >
+      <button class="w-32" @click="store.addUser()" :disabled="isGameStarted">
         Add Player
       </button>
-      <div>
-        <button class="bg-blue-400 text-white" @click="store.newGame()">New Game</button>
-      </div>
-      <toggleSwitch v-model="store.trackBets" class="text-black">Bets </toggleSwitch>
+      <button
+        class="bg-blue-400 text-white w-32 justify-self-end"
+        @click="store.newGame()"
+      >
+        New Game
+      </button>
+      <button class="bg-blue-400 text-white w-32">Setup</button>
+      <toggleSwitch v-model="store.trackBets" class="text-black justify-self-end"
+        >Bets
+      </toggleSwitch>
     </div>
     <div v-if="store.getUsers.length > 0" class="pt-8 mx-2 relative">
       <div class="absolute top-2">name</div>

@@ -2,17 +2,20 @@
   <h1>
     Round <span>{{ scoreStore.getRoundNumber }}</span>
   </h1>
-  <button
-    @click="
-      scoreStore.newRound();
-      activeUser = '';
-    "
-  >
-    New Round
-  </button>
-  <button @click="togglePhase" v-if="scoreStore.trackBets">
-    Toggle phase {{ phase }}
-  </button>
+  <div class="flex flex-row justify-evenly">
+    <button
+      @click="
+        scoreStore.newRound();
+        activeUser = '';
+      "
+    >
+      New Round
+    </button>
+    <toggleSwitch v-model="betOrRoundPhase" v-if="scoreStore.trackBets" square>
+      Round
+      <template #post> Bet</template>
+    </toggleSwitch>
+  </div>
 
   <div class="flex flex-row flex-grow text-2xl capitalize">
     <div class="basis-1/3 px-2">Player</div>
@@ -35,7 +38,7 @@
       :betScore="scoreStore.userList[userId].currentBet"
       :steps="scoreStore.scoreSteps"
       :editable="activeUser == user.name"
-      :phase="phase"
+      :phase="betOrRoundPhase ? 'bet' : 'round'"
       @changeScore="(event) => scoreStore.editCurrentRound(userId, event)"
       @changeBet="(event) => scoreStore.editCurrentBet(userId, event)"
     >
@@ -47,15 +50,12 @@
 <script setup lang="ts">
 import { useScoreStore } from "./store";
 import editscore from "./editscore.vue";
+import toggleSwitch from "../../components/toggleswitch.vue";
 
 import { ref } from "vue";
 type phaseType = "round" | "bet";
 const scoreStore = useScoreStore();
 const activeUser = ref("");
 const phase = ref<phaseType>("round");
-const togglePhase = () => {
-  if (phase.value == "round") {
-    phase.value = "bet";
-  } else phase.value = "round";
-};
+const betOrRoundPhase = ref(false);
 </script>

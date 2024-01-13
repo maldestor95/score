@@ -9,9 +9,9 @@
       </div>
       <div class="basis-2/3">
         <div class="flex justify-between mx-4">
-          <div>{{ roundScore }}</div>
-          <div v-if="store.trackBets">{{ betScore }}</div>
-          <div class="text-2xl">{{ props.lastScore }}</div>
+          <div class="w-14">{{ roundScore }}</div>
+          <div v-if="store.trackBets" class="w-14">{{ betScore }}</div>
+          <div class="text-2xl w-14">{{ props.lastScore }}</div>
         </div>
       </div>
     </div>
