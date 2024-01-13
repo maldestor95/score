@@ -28,22 +28,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import players from "./players.vue";
 import score from "./score.vue";
 import bets from "./bets.vue";
-import { useScoreStore } from "./store.ts";
 
 const showSection = ref("Setup");
-
-const store = useScoreStore();
-const initStore = () => {
-  store.trackBets = true;
-};
-
-onMounted(() => {
-  initStore();
-});
 </script>
-
-<style scoped></style>
