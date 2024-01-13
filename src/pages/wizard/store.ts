@@ -86,8 +86,13 @@ export const useScoreStore = defineStore('scores', {
         },
         getScore(userId: number) {
             return this.totalScore[userId]
+        },
+        editCurrentRound(userId: number, newValue: number) {
+            this.userList[userId].currentRound = newValue
+        },
+        editCurrentBet(userId: number, newValue: number) {
+            this.userList[userId].currentBet = newValue
         }
-
 
     }
 })

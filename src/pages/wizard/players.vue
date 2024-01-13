@@ -7,7 +7,7 @@
       <div>
         <button class="bg-blue-400 text-white" @click="store.newGame()">New Game</button>
       </div>
-      <toggleSwitch v-model="withBets" class="text-black">Bets </toggleSwitch>
+      <toggleSwitch v-model="store.trackBets" class="text-black">Bets </toggleSwitch>
     </div>
     <div v-if="store.getUsers.length > 0" class="pt-8 mx-2 relative">
       <div class="absolute top-2">name</div>
@@ -42,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { useScoreStore } from "./store.ts";
 import toggleSwitch from "../../components/toggleswitch.vue";
 
@@ -54,7 +54,4 @@ const isGameStarted = computed(() => {
 const deleteU = (userId: number) => {
   store.deleteUser(userId);
 };
-const withBets = ref(true);
 </script>
-
-<style scoped></style>

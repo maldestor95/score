@@ -10,84 +10,52 @@
   >
     New Round
   </button>
-  <button @click="togglePhase">Toggle phase {{ phase }}</button>
+  <button @click="togglePhase" v-if="scoreStore.trackBets">
+    Toggle phase {{ phase }}
+  </button>
 
+  <div class="flex flex-row flex-grow text-2xl capitalize">
+    <div class="basis-1/3 px-2">Player</div>
+    <div class="basis-2/3">
+      <div class="flex justify-between mx-4">
+        <div>Round</div>
+        <div v-if="scoreStore.trackBets">Bet</div>
+        <div class="text-2xl">Score</div>
+      </div>
+    </div>
+  </div>
   <div
     v-for="(user, userId) in scoreStore.getUsers"
     :key="userId"
     @click="activeUser = user.name"
   >
     <editscore
-      v-if="phase == 'Score'"
-      v-model="user.currentRound"
       :lastScore="scoreStore.getScore(userId)"
+      :roundScore="scoreStore.userList[userId].currentRound"
+      :betScore="scoreStore.userList[userId].currentBet"
       :steps="scoreStore.scoreSteps"
       :editable="activeUser == user.name"
-    >
-      {{ user.name }}
-    </editscore>
-    <editscore
-      v-if="phase == 'Bet'"
-      v-model="user.currentBet"
-      :lastScore="scoreStore.getScore(userId)"
-      :steps="scoreStore.betSteps"
-      :editable="activeUser == user.name"
+      :phase="phase"
+      @changeScore="(event) => scoreStore.editCurrentRound(userId, event)"
+      @changeBet="(event) => scoreStore.editCurrentBet(userId, event)"
     >
       {{ user.name }}
     </editscore>
   </div>
-
-  <!-- <h1>history</h1>
-  <div
-    v-for="(user, userId) in scoreStore.getUsers"
-    :key="userId"
-    class="container grid grid-cols-3"
-  >
-    <section>
-      {{ user.name }}
-    </section>
-    <section>
-      <inputnumber
-        v-for="roundId in user.scorePerRound.length"
-        :key="roundId"
-        v-model="user.scorePerRound[user.scorePerRound.length - roundId]"
-        :Editable="false"
-      >
-        <template #label>
-          {{ user.name }} --
-          {{ user.scorePerRound.length - roundId }}
-        </template>
-      </inputnumber>
-    </section>
-    <section>
-      <inputnumber
-        v-for="roundId in user.betPerRound.length"
-        :key="roundId"
-        v-model="user.betPerRound[user.betPerRound.length - roundId]"
-        :Editable="false"
-      >
-        <template #label>
-          {{ user.name }} --
-          {{ user.scorePerRound.length - roundId }}
-        </template>
-      </inputnumber>
-    </section>
-  </div> -->
-  <slot></slot>
 </template>
 
 <script setup lang="ts">
 import { useScoreStore } from "./store";
 import editscore from "./editscore.vue";
+
 import { ref } from "vue";
+type phaseType = "round" | "bet";
 const scoreStore = useScoreStore();
 const activeUser = ref("");
-const phase = ref("Score");
+const phase = ref<phaseType>("round");
 const togglePhase = () => {
-  if (phase.value == "Score") {
-    phase.value = "Bet";
-  } else phase.value = "Score";
+  if (phase.value == "round") {
+    phase.value = "bet";
+  } else phase.value = "round";
 };
 </script>
-
-<style scoped></style>
