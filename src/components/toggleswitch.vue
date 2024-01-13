@@ -6,13 +6,23 @@
     </div>
     <label class="switch shrink-0 grow-0">
       <input type="checkbox" :checked="model" v-model="model" />
-      <span class="slider round"></span>
+      <span class="slider" :class="{ round: !props.square }"></span>
     </label>
+    <div class="ml-2 z-0 pt-1">
+      <slot name="post"></slot>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 const model = defineModel<boolean>({ required: true, default: false });
+
+type Props = {
+  square?: boolean;
+};
+const props = withDefaults(defineProps<Props>(), {
+  square: false,
+});
 </script>
 
 <style scoped>
