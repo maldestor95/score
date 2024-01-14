@@ -7,7 +7,7 @@ git init
 git add -A
 git commit -m 'deploy'
 
-git remote add origin https://github.com/maldestor95/dorf.git
+git remote add origin https://github.com/maldestor95/score.git
 git push -f origin master:gh-pages
 
 cd ..
