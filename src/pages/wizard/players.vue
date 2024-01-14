@@ -1,5 +1,5 @@
 <template>
-  <div class="md:container md:shadow-2xl md:shadow-slate-600 px-2 md:rounded-md py-4">
+  <container>
     <div
       class="grid grid-cols-2 md:flex md:justify-around md:flex-wrap items-center gap-y-4"
     >
@@ -12,11 +12,41 @@
       >
         New Game
       </button>
-      <button class="bg-blue-400 text-white w-32">Setup</button>
-      <toggleSwitch v-model="store.trackBets" class="text-black justify-self-end"
+      <toggleSwitch v-model="showStepsSetup" square class="text-black justify-self-end"
+        >Steps Setup</toggleSwitch
+      >
+      <toggleSwitch v-model="store.trackBets" square class="text-black justify-self-end"
         >Bets
       </toggleSwitch>
     </div>
+  </container>
+
+  <div class="flex flex-wrap justify-center" v-if="showStepsSetup">
+    <container class="basis-full md:basis-1/2 pl-4">
+      <defineSteps
+        :steps="store.scoreSteps"
+        @change="
+          (ev) => {
+            store.scoreSteps = ev;
+          }
+        "
+        >ROUND STEPS</defineSteps
+      >
+    </container>
+    <container class="basis-full pl-4 md:basis-1/2" v-if="store.trackBets">
+      <defineSteps
+        :steps="store.betSteps"
+        @change="
+          (ev) => {
+            store.betSteps = ev;
+          }
+        "
+        >BETS STEPS</defineSteps
+      ></container
+    >
+  </div>
+
+  <container>
     <div v-if="store.getUsers.length > 0" class="pt-8 mx-2 relative">
       <div class="absolute top-2">name</div>
       <div
@@ -46,18 +76,21 @@
         </button>
       </div>
     </div>
-  </div>
+  </container>
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useScoreStore } from "./store.ts";
 import toggleSwitch from "../../components/toggleswitch.vue";
+import container from "../../components/container.vue";
+import defineSteps from "./definesteps.vue";
 
 const store = useScoreStore();
 const isGameStarted = computed(() => {
   return store.isGameStarted;
 });
+const showStepsSetup = ref(false);
 
 const deleteU = (userId: number) => {
   store.deleteUser(userId);

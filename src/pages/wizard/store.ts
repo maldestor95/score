@@ -93,7 +93,7 @@ export const useScoreStore = defineStore('scores', {
         editCurrentBet(userId: number, newValue: number) {
             this.userList[userId].currentBet = newValue
         }
-
+        //TODO  changes to save to local Storage
     }
 })
 

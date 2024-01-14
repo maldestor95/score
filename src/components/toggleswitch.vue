@@ -62,17 +62,17 @@ const props = withDefaults(defineProps<Props>(), {
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
-
+/*
 input:checked + .slider {
-  /* background-color: #2196f3; */
+  background-color: #2196f3; 
   @apply bg-blue-400;
 }
 
 input:focus + .slider {
-  /* box-shadow: 0 0 1px #2196f3; */
-  /* @apply bg-blue-400; */
+  box-shadow: 0 0 1px #2196f3; 
+  @apply bg-blue-400;
 }
-
+*/
 input:checked + .slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);

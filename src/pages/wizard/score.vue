@@ -36,7 +36,7 @@
       :lastScore="scoreStore.getScore(userId)"
       :roundScore="scoreStore.userList[userId].currentRound"
       :betScore="scoreStore.userList[userId].currentBet"
-      :steps="scoreStore.scoreSteps"
+      :steps="betOrRoundPhase ? scoreStore.betSteps : scoreStore.scoreSteps"
       :editable="activeUser == user.name"
       :phase="betOrRoundPhase ? 'bet' : 'round'"
       @changeScore="(event) => scoreStore.editCurrentRound(userId, event)"
@@ -53,9 +53,7 @@ import editscore from "./editscore.vue";
 import toggleSwitch from "../../components/toggleswitch.vue";
 
 import { ref } from "vue";
-type phaseType = "round" | "bet";
 const scoreStore = useScoreStore();
 const activeUser = ref("");
-const phase = ref<phaseType>("round");
 const betOrRoundPhase = ref(false);
 </script>
