@@ -4,6 +4,7 @@ interface State {
     userList: UserInfo[]
     trackBets: boolean
     scoreSteps: number[]
+    betSteps: number[]
 }
 
 export type UserInfo = {
@@ -16,9 +17,10 @@ export type UserInfo = {
 export const useScoreStore = defineStore('scores', {
     state: (): State => {
         return {
-            userList: [],
+            userList: [{ name: 'player1', scorePerRound: [], betPerRound: [], currentRound: 0, currentBet: 0 }],
             trackBets: false,
-            scoreSteps: [1, 5, 10]
+            scoreSteps: [1, 5, 10],
+            betSteps: [1, 2, 5, 10],
         }
     },
     getters: {
@@ -27,13 +29,22 @@ export const useScoreStore = defineStore('scores', {
             if (state.userList.length == 0) return 0
             if (!state.userList[0].scorePerRound) return 0
             return state.userList[0].scorePerRound.length
+        },
+        totalScore: (state) => {
+            return state.userList.map(user => {
+                if (user.scorePerRound.length == 0) return 0
+                return user.scorePerRound.reduce((a, b) => a + b)
+            })
+        },
+        isGameStarted: (state) => {
+            return state.userList[0].scorePerRound.length > 0
         }
     },
     actions: {
 
-        addUser(username: string) {
+        addUser() {
+            const username = `player${this.userList.length + 1}`
             this.userList.push({ name: username, betPerRound: [], scorePerRound: [], currentBet: 0, currentRound: 0 })
-
         },
         deleteUser(userId: number) {
             console.log(userId + 'delete')
@@ -66,8 +77,23 @@ export const useScoreStore = defineStore('scores', {
             }
             else
                 this.userList[userId].betPerRound.splice(-1, 1, scoreForTheRound)
+        },
+        newGame() {
+            this.userList.forEach(user => {
+                user.scorePerRound = []
+                user.betPerRound = []
+            })
+        },
+        getScore(userId: number) {
+            return this.totalScore[userId]
+        },
+        editCurrentRound(userId: number, newValue: number) {
+            this.userList[userId].currentRound = newValue
+        },
+        editCurrentBet(userId: number, newValue: number) {
+            this.userList[userId].currentBet = newValue
         }
-
+        //TODO  changes to save to local Storage
     }
 })
 
