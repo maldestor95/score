@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-
+const SETTINGS_LOCAL_STORAGE_KEY = 'score'
 interface State {
     userList: UserInfo[]
     trackBets: boolean
@@ -14,15 +14,25 @@ export type UserInfo = {
     currentRound: number
     currentBet: number
 }
+const DefaultSettings = () => {
+    return {
+        userList: [{ name: 'player1', scorePerRound: [], betPerRound: [], currentRound: 0, currentBet: 0 }],
+        trackBets: false,
+        scoreSteps: [1, 5, 10],
+        betSteps: [1, 2, 5, 10],
+    }
+}
+const updateLocalStorage = (state: State) => {
+    localStorage.setItem(SETTINGS_LOCAL_STORAGE_KEY, JSON.stringify(state))
+}
+const getSettings = () => {
+    const settings = localStorage.getItem(SETTINGS_LOCAL_STORAGE_KEY)
+
+    return settings ? JSON.parse(settings) : DefaultSettings()
+}
 export const useScoreStore = defineStore('scores', {
-    state: (): State => {
-        return {
-            userList: [{ name: 'player1', scorePerRound: [], betPerRound: [], currentRound: 0, currentBet: 0 }],
-            trackBets: false,
-            scoreSteps: [1, 5, 10],
-            betSteps: [1, 2, 5, 10],
-        }
-    },
+    state: (): State => { return getSettings() }
+    ,
     getters: {
         getUsers: (state) => { return state.userList },
         getRoundNumber: (state) => {
@@ -52,17 +62,19 @@ export const useScoreStore = defineStore('scores', {
         },
         updateUserName(userId: number, username: string) {
             this.userList[userId - 1].name = username
+
         },
         newRound() {
-            if (this.trackBets)
-                this.userList.forEach(user => {
-                    user.betPerRound.push(user.currentBet)
-                    user.currentBet = 0
-                })
+            // if (this.trackBets)
+            this.userList.forEach(user => {
+                user.betPerRound.push(user.currentBet)
+                user.currentBet = 0
+            })
             this.userList.forEach(user => {
                 user.scorePerRound.push(user.currentRound)
                 user.currentRound = 0
             })
+            updateLocalStorage(this.$state)
         },
         editRoundOfPlayer(userId: number, scoreForTheRound: number, roundId?: number) {
             if (roundId) {
@@ -83,6 +95,7 @@ export const useScoreStore = defineStore('scores', {
                 user.scorePerRound = []
                 user.betPerRound = []
             })
+            updateLocalStorage(this.$state)
         },
         getScore(userId: number) {
             return this.totalScore[userId]
@@ -93,7 +106,7 @@ export const useScoreStore = defineStore('scores', {
         editCurrentBet(userId: number, newValue: number) {
             this.userList[userId].currentBet = newValue
         }
-        //TODO  changes to save to local Storage
+
     }
 })
 
