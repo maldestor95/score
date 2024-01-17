@@ -17,11 +17,13 @@
     </div>
 
     <div class="border border-black border-solid container" v-if="editable">
-      <div class="flex justify-evenly py-2 text-white" v-for="step in props.steps">
-        <button @click="emitupdate(phase, -step)" class="bg-red-500 w-20 h-14">
-          {{ -step }}
-        </button>
-        <button @click="emitupdate(phase, +step)" class="bg-green-500 w-20 h-14">
+      <div class="flex flex-row flex-wrap gap-4 justify-evenly py-2 text-white">
+        <button
+          v-for="step in props.steps"
+          @click="emitupdate(phase, step)"
+          class="w-20 h-14"
+          :class="{ 'bg-red-500 ': step < 0, 'bg-green-500': step >= 0 }"
+        >
           {{ step }}
         </button>
       </div>
