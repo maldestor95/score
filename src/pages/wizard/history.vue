@@ -18,11 +18,14 @@
       </div>
     </div>
   </container>
+  <historychart></historychart>
 </template>
 
 <script setup lang="ts">
 import { useScoreStore } from "./store";
 import container from "../../components/container.vue";
+import historychart from "./historychart.vue";
+
 const store = useScoreStore();
 </script>
 
