@@ -1,18 +1,15 @@
 <template>
   <div>Chart</div>
-  <div class="flex flex-row justify-center gap-2">
-    <button @click="setGraph = 'total'">Total</button>
-    <button @click="setGraph = 'cumulative'">cumulative</button>
-  </div>
+
   <Bar
     :data="myDataTotal.data"
     :options="myDataTotal.options"
-    v-if="setGraph == 'total'"
+    v-if="props.graphType == 'total'"
   />
   <Line
     :data="myDataCumulative.data"
     :options="myDataCumulative.options"
-    v-if="setGraph == 'cumulative'"
+    v-if="props.graphType == 'cumulative'"
   />
   {{ store.getScore(1) }}
 </template>
@@ -33,9 +30,13 @@ import {
 import zoomPlugin from "chartjs-plugin-zoom";
 import { Bar, Line } from "vue-chartjs";
 import { useScoreStore } from "./store";
-import { ref } from "vue";
 
-const setGraph = ref("cumulative");
+export type Props = {
+  graphType: "total" | "cumulative" | undefined;
+};
+const props = withDefaults(defineProps<Props>(), {
+  graphType: "total",
+});
 
 const store = useScoreStore();
 

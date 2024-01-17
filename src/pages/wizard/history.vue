@@ -1,6 +1,14 @@
 <template>
   <div>History</div>
-  <container class="grid grid-cols-[56px_1fr] overflow-y-auto max-h-[300px]">
+  <div class="flex flex-row justify-center gap-2">
+    <button @click="setGraph = 'total'">Total</button>
+    <button @click="setGraph = 'table'">Table</button>
+    <button @click="setGraph = 'cumulative'">cumulative</button>
+  </div>
+  <container
+    class="grid grid-cols-[56px_1fr] overflow-y-auto max-h-[300px]"
+    v-if="setGraph == 'table'"
+  >
     <div class="font-semibold">
       <div class="firstLine">Round</div>
       <div v-for="(item, index) in store.getRoundNumber" :key="index">
@@ -18,14 +26,16 @@
       </div>
     </div>
   </container>
-  <historychart></historychart>
+  <historychart :graph-type="<graphType><unknown>setGraph"></historychart>
 </template>
 
 <script setup lang="ts">
 import { useScoreStore } from "./store";
 import container from "../../components/container.vue";
-import historychart from "./historychart.vue";
+import historychart, { Props as graphType } from "./historychart.vue";
+import { ref } from "vue";
 
+const setGraph = ref<"total" | "cumulative" | "table" | undefined>("total");
 const store = useScoreStore();
 </script>
 
