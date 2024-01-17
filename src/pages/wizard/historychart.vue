@@ -30,6 +30,7 @@ import {
   LineElement,
   PointElement,
 } from "chart.js";
+import zoomPlugin from "chartjs-plugin-zoom";
 import { Bar, Line } from "vue-chartjs";
 import { useScoreStore } from "./store";
 import { ref } from "vue";
@@ -47,7 +48,8 @@ ChartJS.register(
   Colors,
   Title,
   Legend,
-  Tooltip
+  Tooltip,
+  zoomPlugin
 );
 
 const myDataTotal = {
@@ -68,6 +70,17 @@ const myDataTotal = {
         display: true,
         labels: {
           color: "rgb(255, 99, 132)",
+        },
+      },
+      zoom: {
+        zoom: {
+          wheel: {
+            enabled: true,
+          },
+          pinch: {
+            enabled: true,
+          },
+          mode: "xy",
         },
       },
     },
