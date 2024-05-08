@@ -13,9 +13,6 @@
         <toggleSwitch v-model="showStepsSetup" square class="text-black justify-self-end"
           >Steps Setup</toggleSwitch
         >
-        <toggleSwitch v-model="store.trackBets" square class="text-black justify-self-end"
-          >Bets
-        </toggleSwitch>
       </div>
     </container>
 
@@ -31,7 +28,10 @@
           >ROUND STEPS</defineSteps
         >
       </container>
-      <container class="basis-full pl-4 md:basis-1/2" v-if="store.trackBets">
+      <container class="basis-full pl-4 md:basis-1/2">
+        <toggleSwitch v-model="store.trackBets" square class="text-black justify-self-end"
+          >Bets
+        </toggleSwitch>
         <defineSteps
           :steps="store.betSteps"
           @change="
@@ -39,6 +39,7 @@
               store.betSteps = ev;
             }
           "
+          :disabled="store.trackBets"
           >BETS STEPS</defineSteps
         ></container
       >

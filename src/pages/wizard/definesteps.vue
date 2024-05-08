@@ -1,26 +1,33 @@
 <template>
-  <form class="text-left">
-    <h3>
-      <slot>Choose the steps</slot>
-    </h3>
-    <div v-for="(option, index) in choices" :key="index" class="flex">
-      <input
-        type="radio"
-        :name="choice"
-        :value="option.id"
-        @click="updateSteps(option.id)"
-      />
-      <label :for="option.id" class="ml-2 pt-2">{{ option.opt.join("\ \ \ \ ") }}</label>
-      <br />
-    </div>
-  </form>
+  <div>
+    <form class="text-left">
+      <h3>
+        <slot>Choose the steps</slot>
+      </h3>
+      <div v-for="(option, index) in choices" :key="index" class="flex">
+        <input
+          type="radio"
+          :name="choice"
+          :value="option.id"
+          :disabled="!disabled"
+          @click="updateSteps(option.id)"
+        />
+        <label :for="option.id" class="ml-2 pt-2">{{
+          option.opt.join("\ \ \ \ ")
+        }}</label>
+        <br />
+      </div>
+    </form>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { reactive, ref } from "vue";
+
 type stepsType = number[];
 type Props = {
   steps?: number[];
+  disabled: boolean;
 };
 
 const emit = defineEmits<{
@@ -31,6 +38,7 @@ const props = withDefaults(defineProps<Props>(), {
   steps: () => {
     return [-5, -2, -1, 1, 2, 5];
   },
+  disabled: false,
 });
 
 const choice = ref("opt1");
