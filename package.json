@@ -4,16 +4,20 @@
   "version": "0.1.1",
   "type": "module",
   "homepage": "https://github.com/maldestor95/score",
-  "description": "Online Scoreboard tool","license":"MIT",
+  "description": "Online Scoreboard tool",
+  "license": "MIT",
   "scripts": {
     "dev": "vite --host",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "chart.js": "^4.4.1",
+    "chartjs-plugin-zoom": "^2.0.1",
     "markdown-it": "^13.0.1",
     "pinia": "^2.1.7",
     "vue": "^3.4.5",
+    "vue-chartjs": "^5.3.0",
     "yaml": "^2.3.1"
   },
   "devDependencies": {
