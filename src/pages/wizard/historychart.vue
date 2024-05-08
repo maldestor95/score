@@ -11,7 +11,6 @@
     :options="myDataCumulative.options"
     v-if="props.graphType == 'cumulative'"
   />
-  {{ store.getScore(1) }}
 </template>
 
 <script setup lang="ts">
@@ -26,6 +25,7 @@ import {
   Colors,
   LineElement,
   PointElement,
+  ChartData,
 } from "chart.js";
 import zoomPlugin from "chartjs-plugin-zoom";
 import { Bar, Line } from "vue-chartjs";
@@ -100,13 +100,11 @@ const myDataCumulative = {
       return {
         label: user.name,
         data: store.getCumulativeScore(index),
+        pointStyle: "circle",
+        pointRadius: 10,
+        pointHoverRadius: 15,
       };
     }),
-    // {
-    //   label: store.getUsers[1].name,
-    //   data: store.cumulativeScore[1],
-    // },
-    // ],
   },
   options: {
     responsive: true,
@@ -114,13 +112,7 @@ const myDataCumulative = {
       legend: {
         position: "top",
       },
-      title: {
-        display: true,
-        text: "Chart.js Line Chart",
-      },
     },
   },
 };
 </script>
-
-<style scoped></style>
