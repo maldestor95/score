@@ -22,9 +22,11 @@
       History
     </div>
   </div>
-  <players v-if="showSection == 'Setup'">Players</players>
-  <score v-if="showSection == 'Score'">Score</score>
-  <history v-if="showSection == 'History'"></history>
+  <div class="container mx-auto shadow-2xl mt-2">
+    <players v-if="showSection == 'Setup'" class="pb-4">Players</players>
+    <score v-if="showSection == 'Score'" class="pb-4">Score</score>
+    <history v-if="showSection == 'History'" class="pb-4"></history>
+  </div>
 </template>
 
 <script setup lang="ts">
