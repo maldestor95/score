@@ -10,13 +10,13 @@
         >
           New Game
         </button>
-        <toggleSwitch v-model="showStepsSetup" square class="text-black justify-self-end"
+        <toggleSwitch v-model="showStepsSetup" class="text-black justify-self-end"
           >Steps Setup</toggleSwitch
         >
       </div>
     </container>
 
-    <div class="flex flex-wrap justify-center" v-if="showStepsSetup">
+    <div class="flex flex-wrap justify-center mt-4" v-if="showStepsSetup">
       <container class="basis-full md:basis-1/2 pl-4">
         <defineSteps
           :steps="store.scoreSteps"
@@ -29,7 +29,7 @@
         >
       </container>
       <container class="basis-full pl-4 md:basis-1/2">
-        <toggleSwitch v-model="store.trackBets" square class="text-black justify-self-end"
+        <toggleSwitch v-model="store.trackBets" class="text-black justify-self-end"
           >Bets
         </toggleSwitch>
         <defineSteps
@@ -39,13 +39,13 @@
               store.betSteps = ev;
             }
           "
-          :disabled="store.trackBets"
+          :disabled="!store.trackBets"
           >BETS STEPS</defineSteps
         ></container
       >
     </div>
 
-    <container>
+    <container class="mt-2">
       <div v-if="store.getUsers.length > 0" class="pt-8 mx-2 relative">
         <div class="absolute top-2">name</div>
         <div

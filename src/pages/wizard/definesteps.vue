@@ -9,7 +9,7 @@
           type="radio"
           :name="choice"
           :value="option.id"
-          :disabled="!disabled"
+          :disabled="disabled"
           @click="updateSteps(option.id)"
         />
         <label :for="option.id" class="ml-2 pt-2">{{
