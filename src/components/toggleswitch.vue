@@ -1,12 +1,12 @@
 <template>
   <!-- code inspired by https://www.w3schools.com/howto/howto_css_switch.asp -->
-  <div class="flex flex-row debugall items-center">
+  <div class="flex flex-row items-center">
     <div class="mr-2 z-0 pt-1">
       <slot>switch label</slot>
     </div>
     <label class="switch shrink-0 grow-0">
       <input type="checkbox" :checked="model" v-model="model" />
-      <span class="slider" :class="{ round: !props.square }"></span>
+      <span class="slider" :class="{ round: !props.square, sliderOn: model }"></span>
     </label>
     <div class="ml-2 z-0 pt-1">
       <slot name="post"></slot>
@@ -50,7 +50,9 @@ const props = withDefaults(defineProps<Props>(), {
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
-
+.sliderOn {
+  @apply bg-blue-400;
+}
 .slider:before {
   position: absolute;
   content: "";
