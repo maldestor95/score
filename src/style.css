@@ -32,7 +32,11 @@ a:visited{
 }
 
 .debug {
-  @apply border-2 border-solid border-red-500
+  @apply border-2 border-solid border-violet-600
+}
+.debugall > * {
+  @apply border-2 border-solid border-red-500 
+  
 }
 h1 {
   @apply text-5xl;
