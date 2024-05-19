@@ -25,7 +25,7 @@ import {
   Colors,
   LineElement,
   PointElement,
-  ChartData,
+  ChartConfiguration,
 } from "chart.js";
 import zoomPlugin from "chartjs-plugin-zoom";
 import { Bar, Line } from "vue-chartjs";
@@ -53,6 +53,7 @@ ChartJS.register(
   zoomPlugin
 );
 
+const myDataTotal: ChartConfiguration = {
   type: "bar",
   data: {
     labels: ["Score"],
