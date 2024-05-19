@@ -1,10 +1,10 @@
 <template>
   <div
-    class="container my-4 text-2xl capitalize"
-    :class="{ 'bg-blue-500 text-white': editable }"
+    class="container my-4 text-2xl capitalize md:rounded-xl"
+    :class="{ 'bg-blue-500 text-white ': editable }"
   >
     <div class="flex flex-row flex-grow">
-      <div class="basis-1/3 px-2">
+      <div class="basis-1/3 px-2 text-left" :class="{ 'text-5xl ': activePlayer }">
         <slot>UserName</slot>
       </div>
       <div class="basis-2/3">
@@ -16,12 +16,14 @@
       </div>
     </div>
 
-    <div class="border border-black border-solid container" v-if="editable">
-      <div class="flex flex-row flex-wrap gap-4 justify-evenly py-2 text-white">
+    <div class="container" v-if="editable">
+      <div
+        class="flex flex-row flex-wrap gap-4 md:gap-8 justify-evenly py-2 text-white px-4"
+      >
         <button
           v-for="step in props.steps"
           @click="emitupdate(phase, step)"
-          class="w-20 h-14"
+          class="w-20 h-14 md:grow"
           :class="{ 'bg-red-500 ': step < 0, 'bg-green-500': step >= 0 }"
         >
           {{ step }}
@@ -48,6 +50,7 @@ interface Props {
   steps: number[];
   phase: "round" | "bet";
   editable?: boolean;
+  activePlayer: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   lastScore: 0,
@@ -56,6 +59,7 @@ const props = withDefaults(defineProps<Props>(), {
   steps: () => [1, 3, 5],
   editable: false,
   phase: "round",
+  activePlayer: false,
 });
 
 const emitupdate = (phase: string, value: number) => {

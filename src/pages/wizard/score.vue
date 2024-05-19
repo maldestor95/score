@@ -12,7 +12,7 @@
       >
         New Round
       </button>
-      <toggleSwitch v-model="betOrRoundPhase" v-if="scoreStore.trackBets" square>
+      <toggleSwitch v-model="betOrRoundPhase" v-if="scoreStore.trackBets">
         Round
         <template #post> Bet</template>
       </toggleSwitch>
@@ -42,6 +42,7 @@
         :phase="betOrRoundPhase ? 'bet' : 'round'"
         @changeScore="(event) => scoreStore.editCurrentRound(userId, event)"
         @changeBet="(event) => scoreStore.editCurrentBet(userId, event)"
+        :activePlayer="activeUser == user.name"
       >
         {{ user.name }}
       </editscore>
