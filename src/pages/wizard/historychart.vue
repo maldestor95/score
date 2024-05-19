@@ -32,7 +32,7 @@ import { Bar, Line } from "vue-chartjs";
 import { useScoreStore } from "./store";
 
 export type Props = {
-  graphType: "total" | "cumulative" | undefined;
+  graphType: "total" | "cumulative" | "table" | undefined;
 };
 const props = withDefaults(defineProps<Props>(), {
   graphType: "total",
@@ -53,7 +53,7 @@ ChartJS.register(
   zoomPlugin
 );
 
-const myDataTotal = {
+  type: "bar",
   data: {
     labels: ["Score"],
     datasets: store.userList.map((user, index) => {
@@ -94,6 +94,7 @@ const arrayRange = (start: number, stop: number, step: number) =>
   );
 
 const myDataCumulative = {
+  type: "line",
   data: {
     labels: arrayRange(1, store.getRoundNumber, 1),
     datasets: store.userList.map((user, index) => {

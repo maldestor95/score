@@ -135,7 +135,7 @@ export const useScoreStore = defineStore('scores', {
             this.userList[userId].currentBet = newValue
         }
         ,
-        getCumulativeScore(userId: number) {
+        getCumulativeScore(userId: number): number | number[] {
             return this.cumulativeScore[userId]
         }
 
