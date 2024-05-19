@@ -86,16 +86,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import { useScoreStore } from "./store.ts";
 import toggleSwitch from "../../components/toggleswitch.vue";
 import container from "../../components/container.vue";
 import defineSteps from "./definesteps.vue";
 
 const store = useScoreStore();
-const isGameStarted = computed(() => {
-  return store.isGameStarted;
-});
+
 const showStepsSetup = ref(false);
 
 const deleteU = (userId: number) => {

@@ -31,18 +31,18 @@
     <div
       v-for="(user, userId) in scoreStore.getUsers"
       :key="userId"
-      @click="activeUser = user.name"
+      @click="activeUser = user.userId"
     >
       <editscore
         :lastScore="scoreStore.getScore(userId)"
         :roundScore="scoreStore.userList[userId].currentRound"
         :betScore="scoreStore.userList[userId].currentBet"
         :steps="betOrRoundPhase ? scoreStore.betSteps : scoreStore.scoreSteps"
-        :editable="activeUser == user.name"
+        :editable="activeUser == user.userId"
         :phase="betOrRoundPhase ? 'bet' : 'round'"
         @changeScore="(event) => scoreStore.editCurrentRound(userId, event)"
         @changeBet="(event) => scoreStore.editCurrentBet(userId, event)"
-        :activePlayer="activeUser == user.name"
+        :activePlayer="activeUser == user.userId"
       >
         {{ user.name }}
       </editscore>
