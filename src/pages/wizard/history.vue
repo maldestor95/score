@@ -27,14 +27,14 @@
         </div>
       </div>
     </container>
-    <historychart :graph-type="<graphType><unknown>setGraph"></historychart>
+    <historychart :graph-type="setGraph"></historychart>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useScoreStore } from "./store";
 import container from "../../components/container.vue";
-import historychart, { Props as graphType } from "./historychart.vue";
+import historychart from "./historychart.vue";
 import { ref } from "vue";
 
 const setGraph = ref<"total" | "cumulative" | "table" | undefined>("total");
@@ -44,9 +44,5 @@ const store = useScoreStore();
 <style scoped>
 .alternateBlue > :nth-child(even) {
   @apply bg-blue-400 text-white px-2;
-}
-.firstLine {
-  /* @apply bg-blue-500 text-white px-2 font-semibold; */
-  /* @apply sticky top-0; */
 }
 </style>
