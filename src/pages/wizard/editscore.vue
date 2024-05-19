@@ -4,7 +4,7 @@
     :class="{ 'bg-blue-500 text-white ': editable }"
   >
     <div class="flex flex-row flex-grow">
-      <div class="basis-1/3 px-2 text-left" :class="{ 'text-5xl ': activePlayer }">
+      <div class="basis-1/3 px-2 text-left" :class="{ 'md:text-5xl ': activePlayer }">
         <slot>UserName</slot>
       </div>
       <div class="basis-2/3">
