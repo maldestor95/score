@@ -1,49 +1,52 @@
 <template>
-  <h1>
-    Round <span>{{ scoreStore.getRoundNumber }}</span>
-  </h1>
-  <div class="flex flex-row justify-evenly">
-    <button
-      @click="
-        scoreStore.newRound();
-        activeUser = '';
-      "
-    >
-      New Round
-    </button>
-    <toggleSwitch v-model="betOrRoundPhase" v-if="scoreStore.trackBets" square>
-      Round
-      <template #post> Bet</template>
-    </toggleSwitch>
-  </div>
+  <div>
+    <h1>
+      Round <span>{{ scoreStore.getRoundNumber }}</span>
+    </h1>
+    <div class="flex flex-row justify-evenly">
+      <button
+        @click="
+          scoreStore.newRound();
+          activeUser = '';
+        "
+      >
+        New Round
+      </button>
+      <toggleSwitch v-model="betOrRoundPhase" v-if="scoreStore.trackBets">
+        Round
+        <template #post> Bet</template>
+      </toggleSwitch>
+    </div>
 
-  <div class="flex flex-row flex-grow text-2xl capitalize">
-    <div class="basis-1/3 px-2">Player</div>
-    <div class="basis-2/3">
-      <div class="flex justify-between mx-4">
-        <div>Round</div>
-        <div v-if="scoreStore.trackBets">Bet</div>
-        <div class="text-2xl">Score</div>
+    <div class="flex flex-row flex-grow text-2xl capitalize">
+      <div class="basis-1/3 px-2">Player</div>
+      <div class="basis-2/3">
+        <div class="flex justify-between mx-4">
+          <div>Round</div>
+          <div v-if="scoreStore.trackBets">Bet</div>
+          <div class="text-2xl">Score</div>
+        </div>
       </div>
     </div>
-  </div>
-  <div
-    v-for="(user, userId) in scoreStore.getUsers"
-    :key="userId"
-    @click="activeUser = user.name"
-  >
-    <editscore
-      :lastScore="scoreStore.getScore(userId)"
-      :roundScore="scoreStore.userList[userId].currentRound"
-      :betScore="scoreStore.userList[userId].currentBet"
-      :steps="betOrRoundPhase ? scoreStore.betSteps : scoreStore.scoreSteps"
-      :editable="activeUser == user.name"
-      :phase="betOrRoundPhase ? 'bet' : 'round'"
-      @changeScore="(event) => scoreStore.editCurrentRound(userId, event)"
-      @changeBet="(event) => scoreStore.editCurrentBet(userId, event)"
+    <div
+      v-for="(user, userId) in scoreStore.getUsers"
+      :key="userId"
+      @click="activeUser = user.userId"
     >
-      {{ user.name }}
-    </editscore>
+      <editscore
+        :lastScore="scoreStore.getScore(userId)"
+        :roundScore="scoreStore.userList[userId].currentRound"
+        :betScore="scoreStore.userList[userId].currentBet"
+        :steps="betOrRoundPhase ? scoreStore.betSteps : scoreStore.scoreSteps"
+        :editable="activeUser == user.userId"
+        :phase="betOrRoundPhase ? 'bet' : 'round'"
+        @changeScore="(event) => scoreStore.editCurrentRound(userId, event)"
+        @changeBet="(event) => scoreStore.editCurrentBet(userId, event)"
+        :activePlayer="activeUser == user.userId"
+      >
+        {{ user.name }}
+      </editscore>
+    </div>
   </div>
 </template>
 

@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia'
+import { v4 as uuidv4 } from "uuid"
+
 const SETTINGS_LOCAL_STORAGE_KEY = 'score'
 interface State {
     userList: UserInfo[]
@@ -8,6 +10,7 @@ interface State {
 }
 
 export type UserInfo = {
+    userId: string
     name: string
     scorePerRound: number[]
     betPerRound: number[]
@@ -15,8 +18,12 @@ export type UserInfo = {
     currentBet: number
 }
 const DefaultSettings = () => {
+    const newUUID = uuidv4()
     return {
-        userList: [{ name: 'player1', scorePerRound: [], betPerRound: [], currentRound: 0, currentBet: 0 }],
+        userList: [{
+            userId: newUUID
+            , name: createPlayerName(newUUID), scorePerRound: [], betPerRound: [], currentRound: 0, currentBet: 0
+        }],
         trackBets: false,
         scoreSteps: [1, 5, 10],
         betSteps: [1, 2, 5, 10],
@@ -29,6 +36,11 @@ const getSettings = () => {
     const settings = localStorage.getItem(SETTINGS_LOCAL_STORAGE_KEY)
 
     return settings ? JSON.parse(settings) : DefaultSettings()
+}
+
+const createPlayerName = (uuidString: string): string => {
+    return `player-${uuidString.split('-')[0]}`
+
 }
 export const useScoreStore = defineStore('scores', {
     state: (): State => { return getSettings() }
@@ -46,6 +58,20 @@ export const useScoreStore = defineStore('scores', {
                 return user.scorePerRound.reduce((a, b) => a + b)
             })
         },
+        cumulativeScore: (state) => {
+            return state.userList.map(user => {
+                if (user.scorePerRound.length == 0) return 0
+                let cumul: number[] = []
+                for (let index = 0; index < user.scorePerRound.length; index++) {
+                    if (index == 0) { cumul.push(user.scorePerRound[index]) } else {
+
+                        cumul.push(user.scorePerRound[index] + cumul[index - 1])
+                    }
+
+                }
+                return cumul
+            })
+        },
         isGameStarted: (state) => {
             return state.userList[0].scorePerRound.length > 0
         }
@@ -53,8 +79,9 @@ export const useScoreStore = defineStore('scores', {
     actions: {
 
         addUser() {
-            const username = `player${this.userList.length + 1}`
-            this.userList.push({ name: username, betPerRound: [], scorePerRound: [], currentBet: 0, currentRound: 0 })
+            const newUUID = uuidv4()
+            const username = createPlayerName(newUUID)
+            this.userList.push({ userId: newUUID, name: username, betPerRound: [], scorePerRound: [], currentBet: 0, currentRound: 0 })
         },
         deleteUser(userId: number) {
             console.log(userId + 'delete')
@@ -100,11 +127,16 @@ export const useScoreStore = defineStore('scores', {
         getScore(userId: number) {
             return this.totalScore[userId]
         },
+
         editCurrentRound(userId: number, newValue: number) {
             this.userList[userId].currentRound = newValue
         },
         editCurrentBet(userId: number, newValue: number) {
             this.userList[userId].currentBet = newValue
+        }
+        ,
+        getCumulativeScore(userId: number): number | number[] {
+            return this.cumulativeScore[userId]
         }
 
     }

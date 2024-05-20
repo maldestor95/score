@@ -31,7 +31,13 @@ a:visited{
   color: #2a2a29;
 }
 
-
+.debug {
+  @apply border-2 border-solid border-violet-600
+}
+.debugall > * {
+  @apply border-2 border-solid border-red-500 
+  
+}
 h1 {
   @apply text-5xl;
    /* font-size: 3.2em; */

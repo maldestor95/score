@@ -3,9 +3,7 @@ import wizard from "./pages/wizard/index.vue";
 </script>
 
 <template>
-  <div class="container mx-auto">
-    <wizard></wizard>
-  </div>
+  <wizard></wizard>
 </template>
 
 <style scoped>
