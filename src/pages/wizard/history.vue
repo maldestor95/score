@@ -6,8 +6,8 @@
       <button @click="setGraph = 'table'">Table</button>
       <button @click="setGraph = 'cumulative'">cumulative</button>
     </div>
-    <container
-      class="grid grid-cols-[56px_1fr] overflow-y-auto max-h-[300px]"
+    <div
+      class="container grid grid-cols-[56px_1fr] overflow-y-auto max-h-[300px]"
       v-if="setGraph == 'table'"
     >
       <div class="font-semibold">
@@ -26,14 +26,13 @@
           </div>
         </div>
       </div>
-    </container>
+    </div>
     <historychart :graph-type="setGraph"></historychart>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useScoreStore } from "./store";
-import container from "../../components/container.vue";
 import historychart from "./historychart.vue";
 import { ref } from "vue";
 
