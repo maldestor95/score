@@ -99,11 +99,13 @@ const myDataBar: ChartConfiguration<"bar"> = {
     },
   },
 };
-const arrayRange = (start: number, stop: number, step: number) =>
-  Array.from(
-    { length: (stop - start) / step + 1 },
-    (value, index) => start + index * step
-  );
+const arrayRange = (start: number, stop: number, step: number) => {
+  const arr = [];
+  for (let i = start; i <= stop; i = i + step) {
+    arr.push(i);
+  }
+  return arr;
+};
 
 const myDataCumulative: ChartConfiguration<"line"> = {
   type: "line",
