@@ -1,9 +1,7 @@
 <template>
-  <div>Chart</div>
-
   <Bar
-    :data="myDataTotal.data"
-    :options="myDataTotal.options"
+    :data="myDataBar.data"
+    :options="myDataBar.options"
     v-if="props.graphType == 'total'"
   />
   <Line
@@ -26,6 +24,7 @@ import {
   LineElement,
   PointElement,
   ChartConfiguration,
+  ChartDataset,
 } from "chart.js";
 import zoomPlugin from "chartjs-plugin-zoom";
 import { Bar, Line } from "vue-chartjs";
@@ -53,7 +52,19 @@ ChartJS.register(
   zoomPlugin
 );
 
-const myDataTotal: ChartConfiguration = {
+const cumulativeData = store.userList.map(
+  (user, index): ChartDataset<"line"> => {
+    return {
+      label: user.name,
+      data: <number[]>store.getCumulativeScore(index),
+      pointStyle: "circle",
+      pointRadius: 5,
+      pointHoverRadius: 10,
+    };
+  }
+);
+
+const myDataBar: ChartConfiguration<"bar"> = {
   type: "bar",
   data: {
     labels: ["Score"],
@@ -94,25 +105,18 @@ const arrayRange = (start: number, stop: number, step: number) =>
     (value, index) => start + index * step
   );
 
-const myDataCumulative = {
+const myDataCumulative: ChartConfiguration<"line"> = {
   type: "line",
   data: {
     labels: arrayRange(1, store.getRoundNumber, 1),
-    datasets: store.userList.map((user, index) => {
-      return {
-        label: user.name,
-        data: store.getCumulativeScore(index),
-        pointStyle: "circle",
-        pointRadius: 10,
-        pointHoverRadius: 15,
-      };
-    }),
+    datasets: cumulativeData,
   },
   options: {
     responsive: true,
     plugins: {
       legend: {
         position: "top",
+        labels: { boxWidth: 20 },
       },
     },
   },
