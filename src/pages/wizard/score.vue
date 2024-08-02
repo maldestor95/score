@@ -5,7 +5,7 @@
         Round <span>{{ scoreStore.getRoundNumber }}</span>
       </h1>
       <img
-        :src="`/public/${scoreStore.targetGame.toLowerCase()}.jpg`"
+        :src="`/${scoreStore.targetGame.toLowerCase()}.jpg`"
         alt="uno"
         class="w-16 opacity-80"
         v-if="scoreStore.targetGame != 'Custom Settings'"
