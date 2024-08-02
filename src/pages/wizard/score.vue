@@ -2,6 +2,7 @@
   <div>
     <h1>
       Round <span>{{ scoreStore.getRoundNumber }}</span>
+      {{ scoreStore.targetGame }}
     </h1>
     <div class="flex flex-row justify-evenly">
       <button

@@ -10,10 +10,25 @@
         >
           New Game
         </button>
-        <toggleSwitch v-model="showStepsSetup" class="text-black justify-self-end"
+
+        <toggleSwitch
+          v-model="showStepsSetup"
+          class="text-black justify-self-end"
+          @click="
+            store.targetGame = '';
+            PredefinedChoice = '';
+          "
           >Steps Setup</toggleSwitch
         >
       </div>
+    </container>
+
+    <container class="shadow-md" v-if="!showStepsSetup">
+      <listSelector
+        :options="store.preDefinedGames"
+        v-model="PredefinedChoice"
+        @update:model-value="store.setGame(PredefinedChoice)"
+      ></listSelector>
     </container>
 
     <div class="flex flex-wrap justify-center mt-4" v-if="showStepsSetup">
@@ -28,6 +43,7 @@
           >ROUND STEPS</defineSteps
         >
       </container>
+
       <container class="basis-full pl-4 md:basis-1/2">
         <toggleSwitch v-model="store.trackBets" class="text-black justify-self-end"
           >Bets
@@ -91,9 +107,10 @@ import { useScoreStore } from "./store.ts";
 import toggleSwitch from "../../components/toggleswitch.vue";
 import container from "../../components/container.vue";
 import defineSteps from "./definesteps.vue";
+import listSelector from "../../components/listSelector.vue";
 
 const store = useScoreStore();
-
+const PredefinedChoice = ref(store.preDefinedGames[0]);
 const showStepsSetup = ref(false);
 
 const deleteU = (userId: number) => {

@@ -7,6 +7,7 @@ interface State {
     trackBets: boolean
     scoreSteps: number[]
     betSteps: number[]
+    targetGame?: string
 }
 
 export type UserInfo = {
@@ -16,6 +17,7 @@ export type UserInfo = {
     betPerRound: number[]
     currentRound: number
     currentBet: number
+
 }
 const DefaultSettings = () => {
     const newUUID = uuidv4()
@@ -29,6 +31,14 @@ const DefaultSettings = () => {
         betSteps: [1, 2, 5, 10],
     }
 }
+
+const gameSetup = [
+    { game: 'Uno', steps: [-20, -10, -5, -2, -1, 1, 2, 5, 10, 20], betSteps: [] },
+    { game: 'Wizard', steps: [-20, -10, 10, 20], betSteps: [-1, 1] },
+]
+
+const preDefinedGames = gameSetup.map(game => game.game)
+
 const updateLocalStorage = (state: State) => {
     localStorage.setItem(SETTINGS_LOCAL_STORAGE_KEY, JSON.stringify(state))
 }
@@ -74,10 +84,22 @@ export const useScoreStore = defineStore('scores', {
         },
         isGameStarted: (state) => {
             return state.userList[0].scorePerRound.length > 0
+        },
+        preDefinedGames: () => {
+            return preDefinedGames
         }
+
     },
     actions: {
-
+        setGame(gameName: string) {
+            if (preDefinedGames.includes(gameName)) {
+                const targetGame = gameSetup.filter(game => game.game == gameName)[0]
+                this.scoreSteps = targetGame.steps
+                this.betSteps = targetGame.betSteps
+                this.trackBets = targetGame.betSteps.length > 0
+                this.targetGame = gameName
+            }
+        },
         addUser() {
             const newUUID = uuidv4()
             const username = createPlayerName(newUUID)
