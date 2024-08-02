@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="item in props.options">
-      <div :class="{ 'bg-red-200': choice == item }" @click="choice = item">
+      <div :class="{ chosen: choice == item }" class="py-1" @click="choice = item">
         {{ item }}
       </div>
     </div>
@@ -18,4 +18,8 @@ const props = withDefaults(defineProps<Props>(), {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.chosen {
+  @apply bg-blue-400 text-white font-semibold py-2;
+}
+</style>

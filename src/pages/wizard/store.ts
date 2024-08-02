@@ -7,7 +7,7 @@ interface State {
     trackBets: boolean
     scoreSteps: number[]
     betSteps: number[]
-    targetGame?: string
+    targetGame: string
 }
 
 export type UserInfo = {
@@ -29,6 +29,7 @@ const DefaultSettings = () => {
         trackBets: false,
         scoreSteps: [1, 5, 10],
         betSteps: [1, 2, 5, 10],
+        targetGame: 'Uno'
     }
 }
 
@@ -98,6 +99,14 @@ export const useScoreStore = defineStore('scores', {
                 this.betSteps = targetGame.betSteps
                 this.trackBets = targetGame.betSteps.length > 0
                 this.targetGame = gameName
+                updateLocalStorage(this.$state)
+            }
+            if (gameName == 'Custom Settings') {
+                this.scoreSteps = this.scoreSteps
+                this.betSteps = this.betSteps
+                this.trackBets = false
+                this.targetGame = gameName
+                updateLocalStorage(this.$state)
             }
         },
         addUser() {

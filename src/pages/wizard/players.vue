@@ -1,65 +1,13 @@
 <template>
   <div>
     <container>
-      <div
-        class="grid grid-cols-2 md:flex md:justify-around md:flex-wrap items-center gap-y-4"
+      <button
+        class="bg-blue-400 text-white w-32 justify-self-end"
+        @click="store.newGame()"
       >
-        <button
-          class="bg-blue-400 text-white w-32 justify-self-end"
-          @click="store.newGame()"
-        >
-          New Game
-        </button>
-
-        <toggleSwitch
-          v-model="showStepsSetup"
-          class="text-black justify-self-end"
-          @click="
-            store.targetGame = '';
-            PredefinedChoice = '';
-          "
-          >Steps Setup</toggleSwitch
-        >
-      </div>
+        New Game
+      </button>
     </container>
-
-    <container class="shadow-md" v-if="!showStepsSetup">
-      <listSelector
-        :options="store.preDefinedGames"
-        v-model="PredefinedChoice"
-        @update:model-value="store.setGame(PredefinedChoice)"
-      ></listSelector>
-    </container>
-
-    <div class="flex flex-wrap justify-center mt-4" v-if="showStepsSetup">
-      <container class="basis-full md:basis-1/2 pl-4">
-        <defineSteps
-          :steps="store.scoreSteps"
-          @change="
-            (ev) => {
-              store.scoreSteps = ev;
-            }
-          "
-          >ROUND STEPS</defineSteps
-        >
-      </container>
-
-      <container class="basis-full pl-4 md:basis-1/2">
-        <toggleSwitch v-model="store.trackBets" class="text-black justify-self-end"
-          >Bets
-        </toggleSwitch>
-        <defineSteps
-          :steps="store.betSteps"
-          @change="
-            (ev) => {
-              store.betSteps = ev;
-            }
-          "
-          :disabled="!store.trackBets"
-          >BETS STEPS</defineSteps
-        ></container
-      >
-    </div>
 
     <container class="mt-2">
       <div v-if="store.getUsers.length > 0" class="pt-8 mx-2 relative">
@@ -98,6 +46,51 @@
         Add Player
       </button>
     </container>
+
+    <container class="shadow-md" v-if="!showStepsSetup">
+      <listSelector
+        :options="[...store.preDefinedGames, 'Custom Settings']"
+        v-model="PredefinedChoice"
+        @update:model-value="store.setGame(PredefinedChoice)"
+      ></listSelector>
+
+      <div
+        class="flex flex-wrap justify-center mt-4 scale-0 transition delay-150 duration-300 ease-out scale-x-100"
+        :class="{
+          'scale-y-100': store.targetGame == 'Custom Settings',
+          'h-0': store.targetGame != 'Custom Settings',
+        }"
+      >
+        <container class="basis-full md:basis-1/2 pl-4">
+          <defineSteps
+            :steps="store.scoreSteps"
+            :disabled="false"
+            @change="
+              (ev) => {
+                store.scoreSteps = ev;
+              }
+            "
+            >ROUND STEPS</defineSteps
+          >
+        </container>
+
+        <container class="basis-full pl-4 md:basis-1/2">
+          <toggleSwitch v-model="store.trackBets" class="text-black justify-self-end"
+            >Bets
+          </toggleSwitch>
+          <defineSteps
+            :steps="store.betSteps"
+            @change="
+              (ev) => {
+                store.betSteps = ev;
+              }
+            "
+            :disabled="!store.trackBets"
+            >BETS STEPS</defineSteps
+          ></container
+        >
+      </div>
+    </container>
   </div>
 </template>
 
@@ -110,7 +103,7 @@ import defineSteps from "./definesteps.vue";
 import listSelector from "../../components/listSelector.vue";
 
 const store = useScoreStore();
-const PredefinedChoice = ref(store.preDefinedGames[0]);
+const PredefinedChoice = ref(store.targetGame);
 const showStepsSetup = ref(false);
 
 const deleteU = (userId: number) => {
