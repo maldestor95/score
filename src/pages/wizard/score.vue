@@ -1,9 +1,17 @@
 <template>
   <div>
-    <h1>
-      Round <span>{{ scoreStore.getRoundNumber }}</span>
-      {{ scoreStore.targetGame }}
-    </h1>
+    <div class="flex justify-evenly items-center md:justify-center md:gap-10">
+      <h1>
+        Round <span>{{ scoreStore.getRoundNumber }}</span>
+      </h1>
+      <img
+        :src="`/public/${scoreStore.targetGame.toLowerCase()}.jpg`"
+        alt="uno"
+        class="w-16 opacity-80"
+        v-if="scoreStore.targetGame != 'Custom Settings'"
+      />
+    </div>
+
     <div class="flex flex-row justify-evenly">
       <button
         @click="
