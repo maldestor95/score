@@ -6,7 +6,7 @@
       </h1>
       <img
         :src="`/${scoreStore.targetGame.toLowerCase()}.jpg`"
-        alt="uno"
+        :alt="`${scoreStore.targetGame.toLowerCase()}`"
         class="w-16 opacity-80"
         v-if="scoreStore.targetGame != 'Custom Settings'"
       />

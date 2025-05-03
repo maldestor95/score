@@ -31,4 +31,3 @@ const classement = computed(() => {
 });
 </script>
 
-<style scoped></style>

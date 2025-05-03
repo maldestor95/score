@@ -157,7 +157,6 @@ export const useScoreStore = defineStore('scores', {
             })
             const targetGamePointer = gameSetup.filter(gg => gg.game == this.$state.targetGame)[0]
             if (targetGamePointer.initialScore) {
-                console.log(targetGamePointer.initialScore)
                 this.setInitialScoreForAllPlayers(targetGamePointer.initialScore)
             }
             updateLocalStorage(this.$state)
