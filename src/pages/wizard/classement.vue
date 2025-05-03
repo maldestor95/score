@@ -21,7 +21,7 @@ const classement = computed(() => {
       score: user.scorePerRound.reduce((acc, score) => acc + score, 0),
     };
   });
-  const ranking = (a, b) => {
+  const ranking = (a: typeof users[0], b: typeof users[0]) => {
     if (a.score > b.score) return -1;
     if (a.score < b.score) return 1;
     return 0;
