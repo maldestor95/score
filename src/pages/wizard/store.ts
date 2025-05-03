@@ -36,6 +36,7 @@ const DefaultSettings = () => {
 const gameSetup = [
     { game: 'Uno', steps: [-20, -10, -5, -2, -1, 1, 2, 5, 10, 20], betSteps: [] },
     { game: 'Wizard', steps: [-20, -10, 10, 20], betSteps: [-1, 1] },
+    { game: '301', steps: [-20, -10, -5, -2, -1, 1, 2, 5, 10, 20], betSteps: [], initialScore:301 },
 ]
 
 const preDefinedGames = gameSetup.map(game => game.game)
@@ -99,6 +100,7 @@ export const useScoreStore = defineStore('scores', {
                 this.betSteps = targetGame.betSteps
                 this.trackBets = targetGame.betSteps.length > 0
                 this.targetGame = gameName
+
                 updateLocalStorage(this.$state)
             }
             if (gameName == 'Custom Settings') {
@@ -153,6 +155,11 @@ export const useScoreStore = defineStore('scores', {
                 user.scorePerRound = []
                 user.betPerRound = []
             })
+            const targetGamePointer = gameSetup.filter(gg => gg.game == this.$state.targetGame)[0]
+            if (targetGamePointer.initialScore) {
+                console.log(targetGamePointer.initialScore)
+                this.setInitialScoreForAllPlayers(targetGamePointer.initialScore)
+            }
             updateLocalStorage(this.$state)
         },
         getScore(userId: number) {
@@ -168,8 +175,10 @@ export const useScoreStore = defineStore('scores', {
         ,
         getCumulativeScore(userId: number): number | number[] {
             return this.cumulativeScore[userId]
-        }
-
+        },
+setInitialScoreForAllPlayers(initScore: number) {
+    this.userList.forEach(uu => { uu.scorePerRound.push(initScore); uu.betPerRound.push(0) })
+}
     }
 })
 
