@@ -1,10 +1,11 @@
 <template>
   <div>
     <div>History</div>
-    <div class="flex flex-row justify-center gap-2">
+    <div class="flex flex-row justify-center gap-2 flex-wrap mb-4">
       <button @click="setGraph = 'total'">Total</button>
       <button @click="setGraph = 'table'">Table</button>
       <button @click="setGraph = 'cumulative'">cumulative</button>
+      <button @click="setGraph = 'classement'">classement</button>
     </div>
     <div
       class="container grid grid-cols-[56px_1fr] overflow-y-auto max-h-[300px]"
@@ -28,6 +29,7 @@
       </div>
     </div>
     <historychart :graph-type="setGraph"></historychart>
+    <Classement v-if="setGraph === 'classement'"></Classement>
   </div>
 </template>
 
@@ -35,8 +37,9 @@
 import { useScoreStore } from "./store";
 import historychart from "./historychart.vue";
 import { ref } from "vue";
+import Classement from "./classement.vue";
 
-const setGraph = ref<"total" | "cumulative" | "table" | undefined>("total");
+const setGraph = ref<"total" | "cumulative" | "table" | "classement" | undefined>("total");
 const store = useScoreStore();
 </script>
 
