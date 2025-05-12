@@ -8,7 +8,7 @@
           <stop offset="95%" stop-color="#60A5FA" />
         </linearGradient>
       </defs>
-      <template v-for="(item, index) in sectors" :key="index">
+      <template v-for="index in sectors.length" :key="index">
         <g :transform="`rotate(${rotationAngle.angle} 200 200)`">
           <g :transform="`rotate(${sectorAngle * index} 200 200)`">
             <path
@@ -28,27 +28,7 @@
         style="stroke: red; fill: red; stroke-width: 2"
       ></path>
     </svg>
-    <div class="grid grid-cols-2 hidden">
-      <div>startTime</div>
-      <div>{{ startTime }}</div>
-      <div>stopTime</div>
-      <div>{{ stopTime }}</div>
-      <div>currentTime</div>
-      <div>{{ currentTime }}</div>
-      <div>elapsedTime</div>
-      <div>{{ currentTime - startTime }}</div>
-      <div>Vitess</div>
-      <div>
-        {{ Math.round(rotationAngle.vitesse) }}
-      </div>
-      <div>stopInitiated</div>
-      <div>{{ stopInitiated }}</div>
-      <div>initialOffset</div>
-      <div>{{ initialOffset.toFixed(1) }}</div>
-      <div>rotationAngle.angle</div>
-      <div>{{ rotationAngle.angle.toFixed(1) }}</div>
-    </div>
-    <div>{{ winningSector }}</div>
+    <h3 class="">{{ winningSector }}</h3>
   </div>
 </template>
 
@@ -73,11 +53,14 @@ const stopInitiated = ref(false);
 const timer = ref();
 const initialOffset = ref(Math.random() * 360);
 const rotation = ref(initialOffset.value);
+  const T1 = ref(2500); // increase speed duration
+  const T2 = ref(5000); // decrease speed duration
 
 const spinStart = () => {
   startTime.value = new Date().getTime();
   stopInitiated.value = false;
 
+  T2.value= Math.random() * 5000 + 2000
   timer.value = setInterval(() => {
     currentTime.value = new Date().getTime();
   }, 4);
@@ -101,20 +84,19 @@ const rotationAngle = computed(() => {
   const elapsedStopTime = stopTime.value > 0 ? currentTime.value - stopTime.value : -1;
   const Vcruise = 90;
   let VV = 0;
-  const T1 = 2500; // increase speed duration
-  const T2 = Math.random() * 5000 + 2000; // decrease speed duration
 
-  if (elapsedTime <= T1 && elapsedTime > 0) {
+
+  if (elapsedTime <= T1.value && elapsedTime > 0) {
     //increase
-    VV = 12 * Vcruise * (elapsedTime / T1);
+    VV = 12 * Vcruise * (elapsedTime / T1.value);
     rotation.value = rotation.value + VV / 1000;
   }
-  if (elapsedTime > T1 && stopTime.value == -1) {
+  if (elapsedTime > T1.value && stopTime.value == -1) {
     // cruise
     VV = 3 * Vcruise;
     rotation.value = rotation.value + (VV / 1000) * 4;
   }
-  if (elapsedStopTime > T2) {
+  if (elapsedStopTime > T2.value) {
     // stop
     clearInterval(timer.value);
     startTime.value = -1;
@@ -122,9 +104,9 @@ const rotationAngle = computed(() => {
     stopInitiated.value = false;
   }
 
-  if (elapsedStopTime > 0 && elapsedStopTime < T2) {
+  if (elapsedStopTime > 0 && elapsedStopTime < T2.value) {
     //decrease
-    VV = 12 * Vcruise * (1 - elapsedStopTime / T2);
+    VV = 12 * Vcruise * (1 - elapsedStopTime / T2.value);
     rotation.value = rotation.value + VV / 1000;
   }
 

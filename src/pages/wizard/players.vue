@@ -91,6 +91,10 @@
         >
       </div>
     </container>
+
+    <container>
+      <spinner :sectors="store.getUsers.map(uu=>uu.name)" class="w-60 mx-auto"></spinner>
+    </container>
   </div>
 </template>
 
@@ -101,6 +105,7 @@ import toggleSwitch from "../../components/toggleswitch.vue";
 import container from "../../components/container.vue";
 import defineSteps from "./definesteps.vue";
 import listSelector from "../../components/listSelector.vue";
+import spinner from "../../components/spinner.vue";
 
 const store = useScoreStore();
 const PredefinedChoice = ref(store.targetGame);
