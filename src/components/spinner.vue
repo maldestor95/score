@@ -1,22 +1,32 @@
 <template>
   <div>
-    <button @click="spinStart">Start</button>
-    <button @click="spinStop">Stop</button>
-    <svg viewBox="0 0 400 400" class="sector">
+    <svg viewBox="0 0 400 400" class="sector" @click="toggleSpin">
       >
+      <defs>
+        <linearGradient id="myGradient" gradientTransform="rotate(45)">
+          <stop offset="5%" stop-color="#E6EBEF" />
+          <stop offset="95%" stop-color="#60A5FA" />
+        </linearGradient>
+      </defs>
       <template v-for="(item, index) in sectors" :key="index">
         <g :transform="`rotate(${rotationAngle.angle} 200 200)`">
           <g :transform="`rotate(${sectorAngle * index} 200 200)`">
             <path
               :d="arc(sectorAngle)"
-              style="stroke: black; fill: yellow; stroke-width: 2"
+              style="stroke: black; stroke-width: 2" fill="url('#myGradient')"
             />
-            <text x="320" y="200" :transform="`rotate(${sectorAngle / 2} 200 200)`">
-              {{ item }}
+            <text x="220" y="200" :transform="`rotate(${sectorAngle / 2} 200 200)`" style="stroke: white; stroke-width: 1; fill: white; font-size: xx-large;">
+              {{ sectors[sectors.length - index - 1] }}
             </text>
+            <circle cx="400" cy="200" r="10"></circle>
           </g>
         </g>
       </template>
+
+      <path
+        d="M 380 200 L400 205 L400 195 Z"
+        style="stroke: red; fill: red; stroke-width: 2"
+      ></path>
     </svg>
     <div class="grid grid-cols-2 hidden">
       <div>startTime</div>
@@ -38,6 +48,7 @@
       <div>rotationAngle.angle</div>
       <div>{{ rotationAngle.angle.toFixed(1) }}</div>
     </div>
+    <div>{{ winningSector }}</div>
   </div>
 </template>
 
@@ -61,28 +72,25 @@ const currentTime = ref(0);
 const stopInitiated = ref(false);
 const timer = ref();
 const initialOffset = ref(Math.random() * 360);
-const rotation=ref(initialOffset.value)
+const rotation = ref(initialOffset.value);
 
 const spinStart = () => {
   startTime.value = new Date().getTime();
   stopInitiated.value = false;
-
-  const initSpin = {
-    startTime: startTime.value,
-    rotationAngle: initialOffset.value,
-    initialOffset: initialOffset.value,
-  };
-  console.log("init Spin", initSpin);
 
   timer.value = setInterval(() => {
     currentTime.value = new Date().getTime();
   }, 4);
 };
 
-
+const toggleSpin = () => {
+  if (startTime.value > 0) {
+    spinStop();
+  } else spinStart();
+};
 const spinStop = () => {
-  if (!stopInitiated.value) { 
-    stopInitiated.value=true
+  if (!stopInitiated.value) {
+    stopInitiated.value = true;
     stopTime.value = new Date().getTime();
   }
 };
@@ -94,34 +102,33 @@ const rotationAngle = computed(() => {
   const Vcruise = 90;
   let VV = 0;
   const T1 = 2500; // increase speed duration
-  const T2 = 4000; // decrease speed duration
+  const T2 = Math.random() * 5000 + 2000; // decrease speed duration
 
-  
   if (elapsedTime <= T1 && elapsedTime > 0) {
     //increase
-    VV = 12*Vcruise * (elapsedTime / T1);
-    rotation.value = rotation.value+ VV/1000;
+    VV = 12 * Vcruise * (elapsedTime / T1);
+    rotation.value = rotation.value + VV / 1000;
   }
   if (elapsedTime > T1 && stopTime.value == -1) {
-// cruise
-    VV = 3*Vcruise;
-    rotation.value=rotation.value+VV/1000*4
-}
+    // cruise
+    VV = 3 * Vcruise;
+    rotation.value = rotation.value + (VV / 1000) * 4;
+  }
   if (elapsedStopTime > T2) {
     // stop
     clearInterval(timer.value);
     startTime.value = -1;
     stopTime.value = -1;
-    stopInitiated.value=false
+    stopInitiated.value = false;
   }
 
   if (elapsedStopTime > 0 && elapsedStopTime < T2) {
     //decrease
-    VV = 12*Vcruise * (1-elapsedStopTime / T2 );
-    rotation.value = rotation.value+ VV/1000;
+    VV = 12 * Vcruise * (1 - elapsedStopTime / T2);
+    rotation.value = rotation.value + VV / 1000;
   }
 
-  const angle:number=(Number(rotation.value.toFixed(2)) + initialOffset.value)%360
+  const angle: number = (Number(rotation.value.toFixed(2)) + initialOffset.value) % 360;
   return { angle: angle, vitesse: VV };
 });
 
@@ -132,6 +139,13 @@ const arc = (angleInDegree: number) => {
 
   return `M 200,200 L400 200 A 200,200 0 0,1 ${x} ${y} Z`;
 };
+const winningSector = computed(() => {
+  let index =
+    (Math.floor(rotationAngle.value.angle / sectorAngle.value) + 1) %
+    props.sectors.length;
+  if (index == 0) index = props.sectors.length;
+  return props.sectors[index - 1];
+});
 </script>
 
 <style scoped>

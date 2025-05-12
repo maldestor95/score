@@ -31,9 +31,8 @@
     </div>
     <historychart :graph-type="setGraph "></historychart>
     <Classement v-if="setGraph === 'classement'"></Classement>
-    <div class="grid grid-cols-2">
-    <spinner v-if="setGraph === 'spinner'" :sectors="['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']" class="w-96"></spinner>
-    <spinner v-if="setGraph === 'spinner'" :sectors="['1', '2', '3', '4']" class="w-64"></spinner>
+    <div>
+      <spinner v-if="setGraph === 'spinner'" :sectors="store.getUsers.map(uu=>uu.name)" class="w-60 mx-auto"></spinner>
     </div>
   </div>
 </template>
