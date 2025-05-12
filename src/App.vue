@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import wizard from "./pages/wizard/index.vue";
+
 </script>
 
 <template>

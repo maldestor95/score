@@ -13,19 +13,6 @@
       </p>
     </section>
 
-    <section>
-      <h3>Règles spécifiques</h3>
-      <ul class="list-disc ml-4 mt-4">
-        <li>Jessie: Peut voler un trésor supplémentaire à chaque tour.</li>
-        <li>Ghost: Peut se déplacer à travers les murs du train.</li>
-        <li>Doc: Peut soigner un autre bandit une fois par partie.</li>
-        <li>Cheyenne: Peut attaquer deux fois par tour.</li>
-        <li>Colt: Peut voler un trésor sans être vu.</li>
-        <li>Lucky Luke: Peut se déplacer deux fois par tour.</li>
-        <li>Bill: Peut voler un trésor et le donner à un autre joueur.</li>
-        <li>Calamity Jane: Peut se déplacer sur le toit du train.</li>
-      </ul>
-    </section>
 
     <section>
       <h3>Une partie se déroule en 5 manches. À chaque manche, deux phases de jeu :</h3>
@@ -40,13 +27,13 @@
         </li>
       </ul>
 
-      <img src="https://www.data.ludonaute.fr/Colt_Express/WEBSITE/carte116.png" />
+      <img src="https://www.data.ludonaute.fr/Colt_Express/WEBSITE/carte116.png" class="w-96 mx-auto"/>
     </section>
   </div>
 
   <section
     id="actions"
-    class="grid grid-cols-[1fr_10rem] md:grid-cols-[150px_1fr] gap-4 mt-4"
+    class="container grid grid-cols-[1fr_10rem] md:grid-cols-[150px_1fr_150px_1fr_150px_1fr] gap-4 mt-4 "
   >
     <img src="https://www.data.ludonaute.fr/Colt_Express/WEBSITE/carte_Avancer.png" />
     <div>
