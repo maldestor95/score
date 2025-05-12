@@ -6,6 +6,7 @@
       <button @click="setGraph = 'table'">Table</button>
       <button @click="setGraph = 'cumulative'">cumulative</button>
       <button @click="setGraph = 'classement'">classement</button>
+      <button @click="setGraph = 'spinner'">Spinner</button>
     </div>
     <div
       class="container grid grid-cols-[56px_1fr] overflow-y-auto max-h-[300px]"
@@ -28,18 +29,23 @@
         </div>
       </div>
     </div>
-    <historychart :graph-type="setGraph"></historychart>
+    <historychart :graph-type="setGraph "></historychart>
     <Classement v-if="setGraph === 'classement'"></Classement>
+    <div class="grid grid-cols-2">
+    <spinner v-if="setGraph === 'spinner'" :sectors="['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']" class="w-96"></spinner>
+    <spinner v-if="setGraph === 'spinner'" :sectors="['1', '2', '3', '4']" class="w-64"></spinner>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useScoreStore } from "./store";
 import historychart from "./historychart.vue";
+import spinner from "../../components/spinner.vue";
 import { ref } from "vue";
 import Classement from "./classement.vue";
 
-const setGraph = ref<"total" | "cumulative" | "table" | "classement" | undefined>("total");
+const setGraph = ref<"total" | "cumulative" | "table" | "classement" | "spinner" | undefined>("total");
 const store = useScoreStore();
 </script>
 

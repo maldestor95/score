@@ -31,7 +31,7 @@ import { Bar, Line } from "vue-chartjs";
 import { useScoreStore } from "./store";
 
 export type Props = {
-  graphType: "total" | "cumulative" | "table" | "classement" | undefined;
+  graphType: "total" | "cumulative" | "table" | "classement" | "spinner" | undefined;
 };
 const props = withDefaults(defineProps<Props>(), {
   graphType: "total",
