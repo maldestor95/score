@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { withDefaults, defineProps, computed, ref } from "vue";
+import { computed, ref } from "vue";
 
 interface Props {
   sectors: string[];
