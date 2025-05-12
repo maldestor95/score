@@ -9,6 +9,7 @@
         </linearGradient>
       </defs>
       <template v-for="index in sectors.length" :key="index">
+<!-- {{ index }}{{ sectors[index-1] }} -->
         <g :transform="`rotate(${rotationAngle.angle} 200 200)`">
           <g :transform="`rotate(${sectorAngle * index} 200 200)`">
             <path
@@ -16,7 +17,7 @@
               style="stroke: black; stroke-width: 2" fill="url('#myGradient')"
             />
             <text x="220" y="200" :transform="`rotate(${sectorAngle / 2} 200 200)`" style="stroke: white; stroke-width: 1; fill: white; font-size: xx-large;">
-              {{ sectors[sectors.length - index - 1] }}
+              {{ sectors[index-1] }}
             </text>
             <circle cx="400" cy="200" r="10"></circle>
           </g>
@@ -125,8 +126,8 @@ const winningSector = computed(() => {
   let index =
     (Math.floor(rotationAngle.value.angle / sectorAngle.value) + 1) %
     props.sectors.length;
-  if (index == 0) index = props.sectors.length;
-  return props.sectors[index - 1];
+  if (index == props.sectors.length) index = 0;
+  return props.sectors[props.sectors.length-index-1 ];
 });
 </script>
 
